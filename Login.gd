@@ -19,8 +19,9 @@ func _on_Button_pressed():
 	var QUERY = "a=login&u=chris2&p=123&i=localhost"
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
+	get_tree().change_scene("res://LobbySearch.tscn")
 
 func _on_HTTPRequest_request_completed( result, response_code, headers, body ):
-    var json = JSON.parse(body.get_string_from_utf8())
-    print(json.result)
+	var json = JSON.parse(body.get_string_from_utf8())
+	print(json.result)
 
