@@ -25,14 +25,26 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	if json.result[0].action == 'lobby_search':
 		_update_Server_Browser(json.result[0].result)
 
+# Updates the server browser list
 func _update_Server_Browser(json):
 	print("Lobbies:")
 	for entry in json:
 		print(entry)
 		print("---")
-		var label = Label.new()
-		serverBrowser.add_child(label)
-		label.set_text(entry['lobby_name'])
+		
+		var wrapper = VBoxContainer.new()
+		wrapper.rect_min_size = Vector2(10, 50)
+		serverBrowser.add_child(wrapper)
+
+		
+		var title = Label.new()
+		title.set_text(entry['lobby_name'])
+		wrapper.add_child(title)
+		
+		var host = Label.new()
+		host.set_text(entry['host_name'])
+		wrapper.add_child(host)
+
 
 func _on_Search_pressed():
 	var QUERY = "a=lobby_search&t="+token+"&n="+lobbyName.get_text()
