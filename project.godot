@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="MultiplayerChess"
-run/main_scene="res://MainMenu.tscn"
+run/main_scene="res://Login.tscn"
 config/icon="res://icon.png"
 
 [rendering]
