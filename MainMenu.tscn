@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://menu.gd" type="Script" id=1]
 [ext_resource path="res://menu_video.ogv" type="VideoStream" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Join_Game.png" type="Texture" id=5]
 [ext_resource path="res://Add_Friends.png" type="Texture" id=6]
 [ext_resource path="res://Options.png" type="Texture" id=7]
+[ext_resource path="res://login_music.ogg" type="AudioStream" id=8]
 
 [node name="MainMenu" type="MarginContainer" index="0"]
 
@@ -212,5 +213,13 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 7 )
 stretch_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 8 )
+volume_db = 0.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 

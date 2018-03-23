@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/login_music.ogg-3254d6b75321d260af278668119ea84c.oggstr"
+
+[deps]
+
+source_file="res://login_music.ogg"
+source_md5="bb915024e6ff4e2fea65712fde25e65a"
+
+dest_files=[ "res://.import/login_music.ogg-3254d6b75321d260af278668119ea84c.oggstr" ]
+dest_md5="f421528717ec09289772c7b9bedfd521"
+
+[params]
+
+loop=true
+loop_offset=0
