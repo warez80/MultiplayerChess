@@ -61,9 +61,9 @@ size_flags_vertical = 1
 scroll_horizontal_enabled = false
 scroll_horizontal = 0
 scroll_vertical_enabled = true
-scroll_vertical = 1
+scroll_vertical = 0
 
-[node name="Messages" type="VBoxContainer" parent="Chat_Box/Scroll" index="2"]
+[node name="Messages" type="VBoxContainer" parent="Chat_Box/Scroll" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -81,6 +81,7 @@ _sections_unfolded = [ "Hint", "Margin", "Rect", "custom_constants" ]
 __meta__ = {
 "_edit_group_": true
 }
+path = null
 
 [node name="Text_Input" type="Container" parent="." index="2"]
 
@@ -129,6 +130,7 @@ caret_blink = false
 caret_blink_speed = 0.65
 caret_moving_by_right_click = true
 script = ExtResource( 3 )
+path = null
 
 [node name="Button" type="Button" parent="Text_Input" index="1"]
 
