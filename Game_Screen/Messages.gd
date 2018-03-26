@@ -6,7 +6,9 @@ var messages = []
 var message = ""
 
 func _ready():
-	pass
+	# Check for new messages
+	var textedit = get_node("../../../Text_Input/TextEdit")
+	textedit.connect("sent", self, "add_new_message", [])
 
 func add_new_message(message):
 	
@@ -18,16 +20,8 @@ func add_new_message(message):
 	
 	# add new child to children if there are any new messages
 	messages.append(to_add)
+	add_child(messages[len(messages) - 1])
 
-func print_message(message):
-	print("connected to Messages: " + message)
-	
 func _process(delta):
-	# Check for new messages
-	var textedit = get_node("../../../Text_Input/TextEdit")
-	textedit.connect("sent", self, "add_new_message", [])
-	
-	# add children to VBoxcontainer
-	for i in range(0, len(messages)):
-		add_child(messages[i])
+	pass
 	
