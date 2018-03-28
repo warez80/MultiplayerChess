@@ -23,7 +23,7 @@ func spaces_init():
 		print(b)
 	
 	init = true
-	
+
 func _ready():
 	# We only want to initial spaces array once. We will also repeatedly use this method
 	# for connecting to other nodes, so there is a risk of us adding more elements to 
@@ -31,10 +31,5 @@ func _ready():
 	if(!init):
 		spaces_init()
 		
-	
-	
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+

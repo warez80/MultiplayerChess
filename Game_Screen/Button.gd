@@ -1,5 +1,4 @@
 extends Button
-
 export(NodePath) var path
 
 signal send
