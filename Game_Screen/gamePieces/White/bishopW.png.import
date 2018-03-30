@@ -7,10 +7,10 @@ path="res://.import/bishopW.png-5d803bf78ea59fd9b59a4844223fc151.stex"
 [deps]
 
 source_file="res://gamePieces/White/bishopW.png"
-source_md5="95721ba7c8e9701006547707ff21b8d6"
+source_md5="6565748620b28b2b9321fc8d11197285"
 
 dest_files=[ "res://.import/bishopW.png-5d803bf78ea59fd9b59a4844223fc151.stex" ]
-dest_md5="848267900e5323bde36e42725d278268"
+dest_md5="094a7b45989c51f89c13b16d149046cc"
 
 [params]
 

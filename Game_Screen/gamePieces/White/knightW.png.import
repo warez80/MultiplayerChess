@@ -7,10 +7,10 @@ path="res://.import/knightW.png-f54bd3ed8a54a61b4fba7d273d8f431e.stex"
 [deps]
 
 source_file="res://gamePieces/White/knightW.png"
-source_md5="481aec8573cc3057402f5347f1d6e11e"
+source_md5="0521d0972841e361f4699128d521b922"
 
 dest_files=[ "res://.import/knightW.png-f54bd3ed8a54a61b4fba7d273d8f431e.stex" ]
-dest_md5="4d93c4f0140e2555c4733e758fc8ae9e"
+dest_md5="b1a806074d2dadfa77c3db6f3601655c"
 
 [params]
 

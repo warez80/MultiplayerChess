@@ -7,10 +7,10 @@ path="res://.import/queenW.png-12ccd15fd8fdfb46fd90f26594e9176b.stex"
 [deps]
 
 source_file="res://gamePieces/White/queenW.png"
-source_md5="5a77eafa87853a6e9e50c91f8e29389c"
+source_md5="a044264909cbca13fa5f5e699e5f079b"
 
 dest_files=[ "res://.import/queenW.png-12ccd15fd8fdfb46fd90f26594e9176b.stex" ]
-dest_md5="b6a41500451086e9702c6b0608efb21e"
+dest_md5="6fd92576123fe81a35d73b53f3142c50"
 
 [params]
 

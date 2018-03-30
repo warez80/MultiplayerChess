@@ -7,10 +7,10 @@ path="res://.import/pawnB.png-990d023debd957f15bab06215c7aaab2.stex"
 [deps]
 
 source_file="res://gamePieces/Black/pawnB.png"
-source_md5="636716e9a57fe25d326172337e3312b4"
+source_md5="72764b77ed66d8ebd234d7f6b3864f1b"
 
 dest_files=[ "res://.import/pawnB.png-990d023debd957f15bab06215c7aaab2.stex" ]
-dest_md5="1e018c51e70b905ba2aad8805fd7b777"
+dest_md5="2a9f94f11d80be1e6051b3d7dd546397"
 
 [params]
 

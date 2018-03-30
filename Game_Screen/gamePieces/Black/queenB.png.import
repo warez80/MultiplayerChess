@@ -7,10 +7,10 @@ path="res://.import/queenB.png-20e85c937bb82901164dbf742b15c273.stex"
 [deps]
 
 source_file="res://gamePieces/Black/queenB.png"
-source_md5="ea2cb972bf86a48d5c780bff28277453"
+source_md5="19838ffab8129e53e3dbf714bd3cd292"
 
 dest_files=[ "res://.import/queenB.png-20e85c937bb82901164dbf742b15c273.stex" ]
-dest_md5="a11510d9e7f6e141b77a6d8b42081a53"
+dest_md5="e0c1f6c584a0996b11ed25a3ec4a8f87"
 
 [params]
 

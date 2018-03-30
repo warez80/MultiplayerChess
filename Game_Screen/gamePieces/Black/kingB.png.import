@@ -7,10 +7,10 @@ path="res://.import/kingB.png-b4779e00736663e2f7637ccb055d9290.stex"
 [deps]
 
 source_file="res://gamePieces/Black/kingB.png"
-source_md5="58454b3f90e73be1d6eb29659c947db1"
+source_md5="6043e3e0bf781c981750efecfd528436"
 
 dest_files=[ "res://.import/kingB.png-b4779e00736663e2f7637ccb055d9290.stex" ]
-dest_md5="49b1090637b1d9f4163e4cdf28de654b"
+dest_md5="7e8082e070bf11376f4ed02303144a37"
 
 [params]
 

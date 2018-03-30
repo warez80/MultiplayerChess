@@ -7,10 +7,10 @@ path="res://.import/knightB.png-0ed7aab62e035a01113f9179ac1cde83.stex"
 [deps]
 
 source_file="res://gamePieces/Black/knightB.png"
-source_md5="a6fe743b4bc7ebf6fdfd1e1aebb221a4"
+source_md5="b3a416475d61e1324c8eda42a28e63cb"
 
 dest_files=[ "res://.import/knightB.png-0ed7aab62e035a01113f9179ac1cde83.stex" ]
-dest_md5="f07391378fe2720a1d5c34237b139afb"
+dest_md5="32d1a2f6b527d88ce1951d5e4dfcf122"
 
 [params]
 

@@ -7,10 +7,10 @@ path="res://.import/pawnW.png-96487df7b4f4355c8fcafc03404595d7.stex"
 [deps]
 
 source_file="res://gamePieces/White/pawnW.png"
-source_md5="56cb8cb76f8e11eb6ff3e799289e6982"
+source_md5="bd78a2c29290cb54514bfda5dc747a09"
 
 dest_files=[ "res://.import/pawnW.png-96487df7b4f4355c8fcafc03404595d7.stex" ]
-dest_md5="3a21ade849180576cd8bc37446ff9b55"
+dest_md5="a08a26f2cdf3e4fd1deaa66767aabfaf"
 
 [params]
 

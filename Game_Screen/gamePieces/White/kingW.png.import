@@ -7,10 +7,10 @@ path="res://.import/kingW.png-369734929fdd9e7284c6ff1727d5d5de.stex"
 [deps]
 
 source_file="res://gamePieces/White/kingW.png"
-source_md5="6b72d6153888a3d8ef36171902048d75"
+source_md5="64870fe9fb95d377dbb1ca917291b293"
 
 dest_files=[ "res://.import/kingW.png-369734929fdd9e7284c6ff1727d5d5de.stex" ]
-dest_md5="30f9066377b8160b1ea9fbba07ef5956"
+dest_md5="0d5c23b62b3a38199ebbf52e63e2bea0"
 
 [params]
 

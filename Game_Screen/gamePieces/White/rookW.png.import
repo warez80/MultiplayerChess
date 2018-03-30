@@ -7,10 +7,10 @@ path="res://.import/rookW.png-84e3fde703f2b7c02ddc30c3c903abff.stex"
 [deps]
 
 source_file="res://gamePieces/White/rookW.png"
-source_md5="1aa719dbda804d58de621f7749f287b3"
+source_md5="b5a7e835cd841a1772eaf946208e653a"
 
 dest_files=[ "res://.import/rookW.png-84e3fde703f2b7c02ddc30c3c903abff.stex" ]
-dest_md5="808acc4825216399690f21bb1cbb1f8c"
+dest_md5="49befc7e57182a4a3fc5ec7a7f014e7e"
 
 [params]
 
