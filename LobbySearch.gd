@@ -5,7 +5,7 @@ onready var lobbyName = get_node("Input_LobbyName")
 onready var createLobbyName = get_node("VBoxContainer/GridContainer/Input_Create_LobbyName")
 onready var createLobbyPassword = get_node("VBoxContainer/GridContainer/Input_Create_LobbyPassword")
 
-var token = "76A6F464-083E-49DC-BC08-47E6866E0DC1"
+var token = "512F6954-6E14-4DAF-8816-99F3FAE46C46"
 var userIP = "localhost"
 
 # class member variables go here, for example:

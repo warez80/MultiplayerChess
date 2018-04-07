@@ -17,10 +17,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 16.0
-margin_top = 65.0
-margin_right = 96.0
-margin_bottom = 79.0
+margin_left = 15.0
+margin_top = 118.0
+margin_right = 95.0
+margin_bottom = 132.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -39,11 +39,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 89.0
-margin_bottom = 19.0
-rect_scale = Vector2( 3, 3 )
+margin_left = 13.0
+margin_top = 84.0
+margin_right = 97.0
+margin_bottom = 98.0
+rect_scale = Vector2( 1.5, 1.5 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -62,10 +62,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 17.0
-margin_top = 93.0
-margin_right = 73.0
-margin_bottom = 113.0
+margin_left = 16.0
+margin_top = 146.0
+margin_right = 72.0
+margin_bottom = 166.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -90,14 +90,13 @@ max_redirects = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." index="4"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 26.0
+margin_left = 14.0
 margin_top = 196.0
-margin_right = 432.0
+margin_right = 420.0
 margin_bottom = 330.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -117,6 +116,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 406.0
 margin_bottom = 14.0
+rect_scale = Vector2( 1.5, 1.5 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -288,10 +288,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 109.0
-margin_top = 60.0
-margin_right = 468.0
-margin_bottom = 84.0
+margin_left = 108.0
+margin_top = 113.0
+margin_right = 467.0
+margin_bottom = 137.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -326,8 +326,9 @@ scroll_horizontal_enabled = true
 scroll_horizontal = 0
 scroll_vertical_enabled = true
 scroll_vertical = 0
+_sections_unfolded = [ "Theme" ]
 
-[node name="ServerList" type="VBoxContainer" parent="ServerListWrapper" index="2"]
+[node name="ServerList" type="VBoxContainer" parent="ServerListWrapper" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -342,6 +343,73 @@ size_flags_vertical = 1
 custom_constants/separation = 30
 alignment = 0
 _sections_unfolded = [ "custom_constants" ]
+
+[node name="Label" type="Label" parent="." index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 527.0
+margin_top = 13.0
+margin_right = 627.0
+margin_bottom = 27.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Servers"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "Theme", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
+
+[node name="Label2" type="Label" parent="." index="8"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 388.0
+margin_top = 263.0
+margin_right = 451.0
+margin_bottom = 277.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "(Optional)"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label3" type="Label" parent="." index="9"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 12.0
+margin_top = 14.0
+margin_right = 108.0
+margin_bottom = 28.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Server Browser"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect" ]
 
 [connection signal="pressed" from="Button" to="." method="_on_Search_pressed"]
 
