@@ -213,7 +213,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect" ]
 
-[node name="CheckBox" type="CheckBox" parent="Panel/register_user" index="0"]
+[node name="register_box" type="CheckBox" parent="Panel/register_user" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -243,6 +243,8 @@ download_file = ""
 use_threads = false
 body_size_limit = -1
 max_redirects = 8
+
+[connection signal="pressed" from="Panel/login/Button" to="." method="_on_LoginButton_pressed"]
 
 [connection signal="pressed" from="Panel/login/Button" to="." method="_on_Button_pressed"]
 
