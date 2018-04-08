@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Login.gd" type="Script" id=1]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -47,7 +47,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect" ]
 
-[node name="Button" type="Button" parent="Panel/login" index="0"]
+[node name="login_button" type="Button" parent="Panel/login" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -244,9 +244,32 @@ use_threads = false
 body_size_limit = -1
 max_redirects = 8
 
-[connection signal="pressed" from="Panel/login/Button" to="." method="_on_LoginButton_pressed"]
+[node name="error_text" type="Label" parent="." index="2"]
 
-[connection signal="pressed" from="Panel/login/Button" to="." method="_on_Button_pressed"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 199.0
+margin_top = 481.0
+margin_right = 769.0
+margin_bottom = 536.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "This is the error text label"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
+
+[connection signal="pressed" from="Panel/login/login_button" to="." method="_on_Button_pressed"]
+
+[connection signal="pressed" from="Panel/login/login_button" to="." method="_on_LoginButton_pressed"]
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 

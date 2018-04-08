@@ -5,7 +5,6 @@ onready var lobbyName = get_node("Input_LobbyName")
 onready var createLobbyName = get_node("VBoxContainer/GridContainer/Input_Create_LobbyName")
 onready var createLobbyPassword = get_node("VBoxContainer/GridContainer/Input_Create_LobbyPassword")
 
-var token = "512F6954-6E14-4DAF-8816-99F3FAE46C46"
 var userIP = "localhost"
 
 # class member variables go here, for example:
@@ -68,13 +67,13 @@ func _update_Server_Browser(json):
 
 # User pressed search button
 func _on_Search_pressed():
-	var QUERY = "a=lobby_search&t="+token+"&n="+lobbyName.get_text()
+	var QUERY = "a=lobby_search&t="+global.auth_token+"&n="+lobbyName.get_text()
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
 
 # User creates lobby
 func _on_LobbyCreate_pressed():
-	var QUERY = "a=create_lobby&t="+token+"&n="+createLobbyName.get_text()+"&p="+createLobbyPassword.get_text()+"&i="+userIP
+	var QUERY = "a=create_lobby&t="+global.auth_token+"&n="+createLobbyName.get_text()+"&p="+createLobbyPassword.get_text()+"&i="+userIP
 	print(QUERY)
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
