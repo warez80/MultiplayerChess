@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Login.gd" type="Script" id=1]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -14,14 +14,14 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1.0
 margin_top = 2.0
-margin_right = 1027.0
-margin_bottom = 604.0
+margin_right = 1281.0
+margin_bottom = 802.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Material", "Visibility" ]
+_sections_unfolded = [ "Material", "Rect", "Visibility" ]
 
 [node name="login" type="Label" parent="Panel" index="0"]
 

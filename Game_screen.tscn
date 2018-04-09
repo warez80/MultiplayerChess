@@ -1,11 +1,46 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Game_screen.gd" type="Script" id=1]
 [ext_resource path="res://gamePieces/Background/background.png" type="Texture" id=2]
-[ext_resource path="res://Messages.gd" type="Script" id=3]
-[ext_resource path="res://TextEdit.gd" type="Script" id=4]
-[ext_resource path="res://Button.gd" type="Script" id=5]
-[ext_resource path="res://chess_board.png" type="Texture" id=6]
+[ext_resource path="res://Button.gd" type="Script" id=3]
+[ext_resource path="res://chess_board.png" type="Texture" id=4]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends TextEdit
+export(NodePath) var path
+
+signal sent(message)
+
+func _ready():
+	pass
+	#var send_button = get_node(\"../Button\")
+	#send_button.connect(\"send\", self, \"send_message\")
+
+func _process(delta):
+	pass
+	
+func send_message():
+	if(self.text != \"\"):
+		# select all the text
+		self.select_all()
+		
+		# selected text is going to be the text we send
+		var message = self.get_selection_text()
+		
+		# send a signal to \"Messages\" node to get message we send
+		emit_signal(\"sent\", message)
+		
+		# send 
+		self.cut()
+	
+	
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
 
 [node name="Screen" type="Container" index="0"]
 
@@ -66,47 +101,35 @@ size_flags_vertical = 1
 color = Color( 0.172549, 0.164706, 0.196078, 1 )
 _sections_unfolded = [ "Margin", "Visibility" ]
 
-[node name="Scroll" type="ScrollContainer" parent="Chat_Box" index="1"]
+[node name="BetterChat" type="RichTextLabel" parent="Chat_Box" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -100.0
-margin_top = 18.0
-margin_right = 175.0
-margin_bottom = 439.0
+margin_left = -95.0
+margin_top = 22.0
+margin_right = -95.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 270, 420 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-scroll_horizontal_enabled = false
-scroll_horizontal = 0
-scroll_vertical_enabled = true
-scroll_vertical = 0
-_sections_unfolded = [ "Margin", "Scroll", "Visibility" ]
-
-[node name="Messages" type="VBoxContainer" parent="Chat_Box/Scroll" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_constants/separation = 20
-alignment = 0
-script = ExtResource( 3 )
-_sections_unfolded = [ "Hint", "Margin", "Rect", "Visibility", "custom_constants" ]
-__meta__ = {
-"_edit_group_": true
-}
-path = null
+bbcode_enabled = false
+bbcode_text = ""
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = ""
+scroll_active = true
+scroll_following = true
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Rect" ]
 
 [node name="Chat_Label" type="Label" parent="Chat_Box" index="2"]
 
@@ -144,7 +167,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Margin" ]
 
-[node name="TextEdit" type="TextEdit" parent="Text_Input" index="0"]
+[node name="ChatInputBox" type="TextEdit" parent="Text_Input" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -175,11 +198,11 @@ caret_block_mode = false
 caret_blink = false
 caret_blink_speed = 0.65
 caret_moving_by_right_click = true
-script = ExtResource( 4 )
+script = SubResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 path = null
 
-[node name="Button" type="Button" parent="Text_Input" index="1"]
+[node name="SendChatButton" type="Button" parent="Text_Input" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -202,7 +225,7 @@ group = null
 text = "Send"
 flat = false
 align = 1
-script = ExtResource( 5 )
+script = ExtResource( 3 )
 path = null
 
 [node name="Move_Log" type="Container" parent="." index="3"]
@@ -296,7 +319,7 @@ max_lines_visible = -1
 position = Vector2( 657.314, 429.219 )
 scale = Vector2( 0.546875, 0.546875 )
 z_index = 98
-texture = ExtResource( 6 )
+texture = ExtResource( 4 )
 
 [node name="r0c0" type="Button" parent="Chess_Board" index="0" groups=[
 "ChessGrid",
@@ -1956,5 +1979,7 @@ group = null
 flat = true
 align = 1
 _sections_unfolded = [ "Material", "Rect", "Visibility" ]
+
+[connection signal="pressed" from="Text_Input/SendChatButton" to="." method="_on_SendChatButton_pressed"]
 
 

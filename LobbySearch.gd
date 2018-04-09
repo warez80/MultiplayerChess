@@ -50,3 +50,10 @@ func _on_Search_pressed():
 	var QUERY = "a=lobby_search&t="+token+"&n="+lobbyName.get_text()
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
+
+
+func _on_test_local_client_pressed():
+	global.connect("127.0.0.1")
+
+func _on_test_local_host_pressed():
+	global.setup_game("127.0.0.1")
