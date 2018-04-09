@@ -14,6 +14,10 @@ config/name="MultiplayerChess"
 run/main_scene="res://Welcome.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+global="*res://global.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
