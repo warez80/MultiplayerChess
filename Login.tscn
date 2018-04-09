@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Login.gd" type="Script" id=1]
 [ext_resource path="res://login.png" type="Texture" id=2]
@@ -8,7 +8,7 @@
 
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 
 size = 32
 use_mipmaps = false
@@ -16,28 +16,40 @@ use_filter = false
 font_data = ExtResource( 3 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="Theme" id=12]
+[sub_resource type="Theme" id=3]
 
 
-[sub_resource type="DynamicFontData" id=10]
+[sub_resource type="DynamicFontData" id=4]
 
 font_path = "res://VCR_OSD_MONO_1.001.ttf"
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=5]
 
 size = 13
 use_mipmaps = false
 use_filter = false
-font_data = SubResource( 10 )
+font_data = SubResource( 4 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 
 size = 0
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 3 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback" ]
+
+[sub_resource type="DynamicFontData" id=7]
+
+font_path = "res://VCR_OSD_MONO_1.001.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+
+size = 24
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 7 )
+_sections_unfolded = [ "Font", "Settings" ]
 
 [node name="Main" type="Node" index="0"]
 
@@ -64,7 +76,7 @@ texture = ExtResource( 2 )
 stretch_mode = 0
 _sections_unfolded = [ "Material", "Visibility" ]
 
-[node name="Button" type="Button" parent="Panel" index="0"]
+[node name="login_button" type="Button" parent="Panel" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -82,7 +94,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -108,7 +120,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = SubResource( 12 )
+theme = SubResource( 3 )
 text = ""
 readonly = false
 highlight_current_line = false
@@ -143,7 +155,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 5 )
 secret = true
 focus_mode = 2
 context_menu_enabled = true
@@ -153,7 +165,7 @@ caret_blink_speed = 0.65
 caret_position = 0
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Placeholder" ]
 
-[node name="CheckBox" type="CheckBox" parent="Panel" index="3"]
+[node name="register_box" type="CheckBox" parent="Panel" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -169,7 +181,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color_disabled = Color( 0.0392157, 0, 0.74902, 1 )
 custom_colors/font_color = Color( 0.0392157, 0, 0.74902, 1 )
 custom_colors/font_color_hover = Color( 0.0392157, 0, 0.74902, 1 )
@@ -189,7 +201,28 @@ use_threads = false
 body_size_limit = -1
 max_redirects = 8
 
-[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
+[node name="error_text" type="Label" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 188.0
+margin_top = 416.0
+margin_right = 532.0
+margin_bottom = 438.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 8 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Margin", "custom_constants", "custom_fonts" ]
+
+[connection signal="pressed" from="Panel/login_button" to="." method="_on_Button_pressed"]
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 

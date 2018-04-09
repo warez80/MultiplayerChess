@@ -1,23 +1,20 @@
 extends Node
 
-onready var username = get_node("Panel/username/username_input")
-onready var password = get_node("Panel/password/password_input")
-onready var register = get_node("Panel/register_user/register_box")
+onready var username = get_node("Panel/username_input")
+onready var password = get_node("Panel/password_input")
+onready var register = get_node("Panel/register_box")
 onready var error = get_node("error_text")
-onready var login = get_node("Panel/login/login_button")
+onready var login = get_node("Panel/login_button")
 
 var errorCount = 0
-
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	error.set_text("")
 	pass
-
+	
+	
 func _on_HTTPRequest_request_completed( result, response_code, headers, body ):
 	var json = JSON.parse(body.get_string_from_utf8())
 	print(json.result)
@@ -41,10 +38,10 @@ func _on_HTTPRequest_request_completed( result, response_code, headers, body ):
 	# If registration is success, log user in
 	if json.result[0].action == 'register':
 		register.pressed = false
-		_on_LoginButton_pressed()
+		_on_Button_pressed()
 		return
 
-func _on_LoginButton_pressed():
+func _on_Button_pressed():
 	if username.get_text().length() < 1 or password.get_text().length() < 1:
 		error.set_text("Error: Missing Username or Password")
 		return
