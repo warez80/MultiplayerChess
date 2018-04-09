@@ -64,34 +64,7 @@ texture = ExtResource( 2 )
 stretch_mode = 0
 _sections_unfolded = [ "Material", "Visibility" ]
 
-<<<<<<< HEAD
 [node name="Button" type="Button" parent="Panel" index="0"]
-=======
-[node name="login" type="Label" parent="Panel" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 193.0
-margin_top = 163.0
-margin_right = 233.0
-margin_bottom = 177.0
-rect_scale = Vector2( 3, 3 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Login"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Rect" ]
-
-[node name="login_button" type="Button" parent="Panel/login" index="0"]
->>>>>>> 3dcae6d7b5f1376b8808de493f3243cd03d4e480
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -143,7 +116,7 @@ syntax_highlighting = false
 show_line_numbers = false
 highlight_all_occurrences = false
 override_selected_font_color = false
-context_menu_enabled = true
+context_menu_enabled = false
 smooth_scrolling = false
 v_scroll_speed = 80.0
 hiding_enabled = 0
@@ -152,7 +125,7 @@ caret_block_mode = false
 caret_blink = true
 caret_blink_speed = 0.3
 caret_moving_by_right_click = true
-_sections_unfolded = [ "Anchor", "Caret", "Focus", "Grow Direction", "Rect", "Size Flags", "Theme", "custom_fonts", "custom_icons" ]
+_sections_unfolded = [ "Caret", "Pause", "Theme", "custom_fonts", "custom_icons" ]
 
 [node name="password_input" type="LineEdit" parent="Panel" index="2"]
 
@@ -180,11 +153,7 @@ caret_blink_speed = 0.65
 caret_position = 0
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Placeholder" ]
 
-<<<<<<< HEAD
 [node name="CheckBox" type="CheckBox" parent="Panel" index="3"]
-=======
-[node name="register_box" type="CheckBox" parent="Panel/register_user" index="0"]
->>>>>>> 3dcae6d7b5f1376b8808de493f3243cd03d4e480
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -220,36 +189,7 @@ use_threads = false
 body_size_limit = -1
 max_redirects = 8
 
-<<<<<<< HEAD
 [connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
-=======
-[node name="error_text" type="Label" parent="." index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 199.0
-margin_top = 481.0
-margin_right = 769.0
-margin_bottom = 536.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-text = "This is the error text label"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors" ]
-
-[connection signal="pressed" from="Panel/login/login_button" to="." method="_on_Button_pressed"]
-
-[connection signal="pressed" from="Panel/login/login_button" to="." method="_on_LoginButton_pressed"]
->>>>>>> 3dcae6d7b5f1376b8808de493f3243cd03d4e480
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
