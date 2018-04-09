@@ -4,16 +4,17 @@ onready var serverBrowser = get_node("ServerListWrapper/ServerList")
 onready var lobbyName = get_node("Input_LobbyName")
 onready var createLobbyName = get_node("VBoxContainer/GridContainer/Input_Create_LobbyName")
 onready var createLobbyPassword = get_node("VBoxContainer/GridContainer/Input_Create_LobbyPassword")
-
+onready var player = get_node("Vaporwave_Player")
+var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var userIP = "localhost"
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 
 func _ready():
+	var current_song = load(songNames[4] + ".ogg")
+	player.set_stream(current_song)
+	player.play()
 	_on_Search_pressed()	# Populate with default
-	pass
+	
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

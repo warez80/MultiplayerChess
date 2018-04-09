@@ -7,7 +7,7 @@ var glitching = false
 var exiting = false
 
 func _ready():
-	self.texture = load("res://"+main_menu+str(1)+".png")	
+	self.texture = load("res://improved_main.png")	
 	
 func _glitch_screen(i):
 	var num = i
