@@ -2,7 +2,7 @@ extends TextureRect
 
 var main_menu = "the_main_menu_"
 var repeat = 0
-var end = 10
+var end = 7
 var glitching = false
 var exiting = false
 
@@ -19,7 +19,7 @@ func _process(delta):
 	
 	# if end is true, then glitch the screen 'repeat' number of times
 	if(glitching):
-		_glitch_screen(randi() % 14)
+		_glitch_screen(randi() % 17)
 		
 		repeat = repeat + 1
 		

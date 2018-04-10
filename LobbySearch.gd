@@ -5,9 +5,11 @@ onready var lobbyName = get_node("Input_LobbyName")
 onready var createLobbyName = get_node("VBoxContainer/GridContainer/Input_Create_LobbyName")
 onready var createLobbyPassword = get_node("VBoxContainer/GridContainer/Input_Create_LobbyPassword")
 onready var player = get_node("Vaporwave_Player")
+onready var desktop = get_node("background")
+
 var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var userIP = "localhost"
-
+var elapsed_time = 0
 
 func _ready():
 	var current_song = load(songNames[4] + ".ogg")
@@ -17,9 +19,18 @@ func _ready():
 	
 
 #func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+	# Called every frame. Delta is time since last frame.
+	# Update game logic here.
+#	elapsed_time = elapsed_time + delta
+	
+#	if( elapsed_time > 0.2 ):
+#		if( desktop.frame == desktop.get_sprite_frames().get_frame_count() - 1):
+#			desktop.frame = 0
+#		else:
+#			desktop.frame = desktop.frame + 1
+#			
+#		elapsed_time = 0
+
 
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
