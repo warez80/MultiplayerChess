@@ -104,47 +104,50 @@ func is_valid(from_r, from_c, to_r, to_c):
 	var diff_r = from_r - to_r
 	var diff_c = from_c - to_c
 	match pieceTypes[from_r][from_c]:
-		BLACK_PAWN:
-			if(to_c == from_c and to_r == from_r+1):
+		global.BLACK_PAWN:
+			if (to_c == from_c and to_r == from_r+1):
 				return true
-		BLACK_ROOK:
-			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
-				if is_blocked(from_r, from_c, to_r, to_c, sign(diff_r), sign(diff_c)):
-					return true
-		BLACK_KING:
+			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r + 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
+				return true
+		global.BLACK_ROOK:
+			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
+				return true
+		global.BLACK_KING:
 			if abs(diff_c) <= 1 and abs(diff_r) <= 1:
 				return true
-		BLACK_KNIGHT:
+		global.BLACK_KNIGHT:
 			if abs(diff_c) == 1 and abs(diff_r) == 2:
 				return true
 			if abs(diff_r) == 1 and abs(diff_r) == 2:
 				return true
-		BLACK_BISHOP:
+		global.BLACK_BISHOP:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
 				return true
-		BLACK_QUEEN:
+		global.BLACK_QUEEN:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
 				return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
-		WHITE_PAWN:
+		global.WHITE_PAWN:
 			if(to_c == from_c and to_r == from_r-1):
 				return true
-		WHITE_ROOK:
+			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r - 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
+				return true
+		global.WHITE_ROOK:
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
-		WHITE_KING:
+		global.WHITE_KING:
 			if abs(diff_c) <= 1 and abs(diff_r) <= 1:
 				return true
-		WHITE_KNIGHT:
+		global.WHITE_KNIGHT:
 			if abs(diff_c) == 1 and abs(diff_r) == 2:
 				return true
 			if abs(diff_r) == 1 and abs(diff_c) == 2:
 				return true
-		WHITE_BISHOP:
+		global.WHITE_BISHOP:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
 				return true
-		WHITE_QUEEN:
+		global.WHITE_QUEEN:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
 				return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
@@ -155,7 +158,7 @@ func is_blocked(from_r, from_c, to_r, to_c, dr, dc):
 	var r = from_r + dr
 	var c = from_c + dc
 	while r != to_r and c != to_c and in_bounds(r, c):
-		if pieceTypes[r][c] != NONE:
+		if pieceTypes[r][c] != global.NONE:
 			return true
 		r += dr
 		c += dc
