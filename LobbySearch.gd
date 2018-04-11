@@ -2,34 +2,65 @@ extends CanvasLayer
 
 onready var serverBrowser = get_node("ServerListWrapper/ServerList")
 onready var lobbyName = get_node("Input_LobbyName")
-onready var createLobbyName = get_node("VBoxContainer/GridContainer/Input_Create_LobbyName")
-onready var createLobbyPassword = get_node("VBoxContainer/GridContainer/Input_Create_LobbyPassword")
+onready var createLobbyName = get_node("Input_Create_LobbyName")
+onready var createLobbyPassword = get_node("Input_Create_LobbyPassword")
 onready var player = get_node("Vaporwave_Player")
 onready var desktop = get_node("background")
 
 var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var userIP = "localhost"
+var song_playing = true
+var song_position = 0
+var song_number = 4
 var elapsed_time = 0
 
 func _ready():
-	var current_song = load(songNames[4] + ".ogg")
-	player.set_stream(current_song)
-	player.play()
-	_on_Search_pressed()	# Populate with default
 	
+	var current_song = load(songNames[song_number] + ".ogg")
+	player.set_stream(current_song)
+	
+	if song_playing:
+		player.play()
+		
+	_on_Search_pressed()
 
-#func _process(delta):
+
+	
+func _process(delta):
+	
+	# if they want to pause the song
+	if Input.is_action_pressed("ui_select"):
+		if song_playing:
+			song_playing = false
+			song_position = player.get_playback_position()
+			player.stop()
+		else:
+			song_playing = true
+			player.play(song_position)
+
+	# if they want to play a different song
+	if Input.is_action_just_pressed("ui_left"):
+		song_number = song_number - 1
+		if song_number >= len(songNames):
+			song_number = 0
+			
+		var current_song = load(songNames[song_number] + ".ogg")
+		player.set_stream(current_song)
+
+
+	if Input.is_action_just_pressed("ui_right"):
+		song_number = song_number + 1 
+		if song_number < 0 :
+			song_number = len(songNames) - 1
+		var current_song = load(songNames[song_number] + ".ogg")
+		player.set_stream(current_song)
+
 	# Called every frame. Delta is time since last frame.
 	# Update game logic here.
-#	elapsed_time = elapsed_time + delta
 	
-#	if( elapsed_time > 0.2 ):
-#		if( desktop.frame == desktop.get_sprite_frames().get_frame_count() - 1):
-#			desktop.frame = 0
-#		else:
-#			desktop.frame = desktop.frame + 1
-#			
-#		elapsed_time = 0
+	#elapsed_time = elapsed_time + delta
+	
+
 
 
 
@@ -93,4 +124,7 @@ func _on_LobbyCreate_pressed():
 #Lobby Join
 func _on_LobbyJoin_pressed(ip):
 	print("Join Lobby with IP: " + ip)
+	
+func timeout():
+	print("time_out")
 	
