@@ -122,14 +122,16 @@ func move_piece(from_r, from_c, to_r, to_c):
 	pass
 	
 func is_valid(from_r, from_c, to_r, to_c):
-	var diff_r = to_r - from_r
-	var diff_c = to_c - from_c
-	match global.pieceTypes[from_r][from_c]:
+	var diff_r = from_r - to_r
+	var diff_c = from_c - to_c
+	match pieceTypes[from_r][from_c]:
 		global.BLACK_PAWN:
-			if(to_c == from_c and to_r == from_r+1):
+			if (to_c == from_c and to_r == from_r+1):
+				return true
+			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r + 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
 				return true
 		global.BLACK_ROOK:
-			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
+			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
 		global.BLACK_KING:
 			if abs(diff_c) <= 1 and abs(diff_r) <= 1:
@@ -149,6 +151,8 @@ func is_valid(from_r, from_c, to_r, to_c):
 				return true
 		global.WHITE_PAWN:
 			if(to_c == from_c and to_r == from_r-1):
+				return true
+			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r - 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
 				return true
 		global.WHITE_ROOK:
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
@@ -170,7 +174,6 @@ func is_valid(from_r, from_c, to_r, to_c):
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
 	return false
-	
 #func is_blocked(from_r, from_c, to_r, to_c, dr, dc):
 #	print("dr = "+str(dr)+"|dc = "+str(dc))
 #	print("from_r = "+str(from_r)+"|from_c = "+str(from_c))
