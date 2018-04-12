@@ -11,7 +11,7 @@
 [ext_resource path="res://toolbar.png" type="Texture" id=9]
 [ext_resource path="res://serverbg.png" type="Texture" id=10]
 
-[node name="Container" type="Container"]
+[node name="Container" type="Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -80,8 +80,8 @@ texture = ExtResource( 9 )
 
 [node name="Sprite" type="Sprite" parent="." index="6"]
 
-position = Vector2( 650, 390 )
-scale = Vector2( 0.440494, 0.414918 )
+position = Vector2( 693.957, 383.4 )
+scale = Vector2( 0.791811, 0.681422 )
 texture = ExtResource( 10 )
 
 [node name="ServerListWrapper" type="ScrollContainer" parent="." index="7"]
@@ -90,10 +90,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 670.0
-margin_top = 270.0
-margin_right = 963.0
-margin_bottom = 541.0
+margin_left = 733.0
+margin_top = 266.0
+margin_right = 1026.0
+margin_bottom = 529.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
