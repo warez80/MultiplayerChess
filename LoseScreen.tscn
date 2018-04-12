@@ -3,7 +3,7 @@
 [ext_resource path="res://losescreen.png" type="Texture" id=1]
 [ext_resource path="res://LoseScreen.gd" type="Script" id=2]
 
-[node name="loseBackground" type="TextureRect" index="0"]
+[node name="loseBackground" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0
