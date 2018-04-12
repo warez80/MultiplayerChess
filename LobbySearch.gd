@@ -45,23 +45,13 @@ func _process(delta):
 			
 		var current_song = load(songNames[song_number] + ".ogg")
 		player.set_stream(current_song)
-
-
+		
 	if Input.is_action_just_pressed("ui_right"):
 		song_number = song_number + 1 
 		if song_number < 0 :
 			song_number = len(songNames) - 1
 		var current_song = load(songNames[song_number] + ".ogg")
 		player.set_stream(current_song)
-
-	# Called every frame. Delta is time since last frame.
-	# Update game logic here.
-	
-	#elapsed_time = elapsed_time + delta
-	
-
-
-
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())

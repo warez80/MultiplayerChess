@@ -3,7 +3,7 @@
 [ext_resource path="res://improved_main.png" type="Texture" id=1]
 [ext_resource path="res://Welcome.gd" type="Script" id=2]
 
-[node name="Welcome_Screen" type="Control"]
+[node name="Welcome_Screen" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
