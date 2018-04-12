@@ -28,6 +28,7 @@ var was_pressed = false
 
 func _ready():
 	selected_theme = preload("res://selected_theme.tres")
+	move_theme = preload("res://move_theme.tres")
 	pass
 
 func _process(delta):
@@ -80,17 +81,27 @@ func _process(delta):
 	
 	for i in range(8):
 		for j in range(8):
-			grid[i][j].flat = true
+			grid[i][j].set_flat(true)
+			grid[i][j].set_theme(null)
+	
 			
 	if selected_r != -1 and selected_c != -1:
-		grid[selected_r][selected_c].flat = false
-		grid[selected_r][selected_c].theme = selected_theme
+		grid[selected_r][selected_c].set_flat(false)
+		grid[selected_r][selected_c].set_theme(selected_theme)
+		
+		for i in range(8):
+			for j in range(8):
+				if is_valid(selected_r, selected_c, i, j):
+					grid[i][j].set_flat(false)
+					grid[i][j].set_theme(move_theme)
 
 func select_tile(r, c):
 	print(str(r) + str(c))
 	if !global.my_turn:
+		selected_r = -1
+		selected_c = -1
 		return
-	if selected_r == -1 and selected_c == -1:
+	elif selected_r == -1 and selected_c == -1:
 		if global.pieceTypes[r][c] == global.NONE or !can_move_piece(r, c):
 			return
 		selected_r = r
@@ -122,9 +133,12 @@ func move_piece(from_r, from_c, to_r, to_c):
 	pass
 	
 func is_valid(from_r, from_c, to_r, to_c):
+	if from_r == to_r and from_c == to_c:
+		return false
+		
 	var diff_r = from_r - to_r
 	var diff_c = from_c - to_c
-	match pieceTypes[from_r][from_c]:
+	match global.pieceTypes[from_r][from_c]:
 		global.BLACK_PAWN:
 			if (to_c == from_c and to_r == from_r+1):
 				return true
@@ -173,6 +187,10 @@ func is_valid(from_r, from_c, to_r, to_c):
 				return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
+	return false
+	
+func is_blocked_diag(from_r, from_c, to_r, to_c):
+	
 	return false
 #func is_blocked(from_r, from_c, to_r, to_c, dr, dc):
 #	print("dr = "+str(dr)+"|dc = "+str(dc))
