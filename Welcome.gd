@@ -38,5 +38,5 @@ func _process(delta):
 	elif(Input.is_action_pressed("ui_accept") and not glitching):
 		# let the glitching commence
 		glitching = true
-		
-		
+	
+	

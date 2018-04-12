@@ -1,21 +1,30 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://LobbySearch.gd" type="Script" id=1]
-[ext_resource path="res://vpbk_login_0.jpg" type="Texture" id=2]
-[ext_resource path="res://vpbk_4.jpg" type="Texture" id=3]
-[ext_resource path="res://start.png" type="Texture" id=4]
-[ext_resource path="res://toolbar.png" type="Texture" id=5]
-[ext_resource path="res://vpbk_3.jpg" type="Texture" id=6]
-[ext_resource path="res://serverbg.png" type="Texture" id=7]
+[ext_resource path="res://windows95.tres" type="Theme" id=1]
+[ext_resource path="res://LobbySearch.gd" type="Script" id=2]
+[ext_resource path="res://vpbk_login_0.jpg" type="Texture" id=3]
+[ext_resource path="res://vpbk_4.jpg" type="Texture" id=4]
+[ext_resource path="res://vpbk_3.gd" type="Script" id=5]
+[ext_resource path="res://vpbk_2.png" type="Texture" id=6]
+[ext_resource path="res://vpbk_3.jpg" type="Texture" id=7]
+[ext_resource path="res://start.png" type="Texture" id=8]
+[ext_resource path="res://toolbar.png" type="Texture" id=9]
+[ext_resource path="res://serverbg.png" type="Texture" id=10]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="Container" type="Container"]
 
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1.25, 1.33333 )
-transform = Transform2D( 1.25, 0, 0, 1.33333, 0, 0 )
-script = ExtResource( 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+_sections_unfolded = [ "Theme" ]
 
 [node name="background" type="TextureRect" parent="." index="0"]
 
@@ -25,58 +34,66 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 600.0
+rect_scale = Vector2( 1.25, 1.3333 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 stretch_mode = 0
+_sections_unfolded = [ "Anchor", "Margin", "Rect", "Theme" ]
 
 [node name="vpbk_4" type="Sprite" parent="." index="1"]
 
-position = Vector2( 190, 150 )
-scale = Vector2( 0.220641, 0.1917 )
-texture = ExtResource( 3 )
-
-[node name="Sprite2" type="Sprite" parent="." index="2"]
-
-position = Vector2( 77.58, 436.058 )
-rotation = 0.00151986
-scale = Vector2( 0.209096, 0.253921 )
+position = Vector2( 160, 140 )
+scale = Vector2( 0.171749, 0.1596 )
 texture = ExtResource( 4 )
+script = ExtResource( 5 )
 
-[node name="toolbar" type="Sprite" parent="." index="3"]
+[node name="vpbk_2" type="Sprite" parent="." index="2"]
 
-position = Vector2( 512.497, 587.223 )
-scale = Vector2( 0.356148, 0.41216 )
-texture = ExtResource( 5 )
-
-[node name="vpbk_3" type="Sprite" parent="." index="4"]
-
-position = Vector2( 900, 220 )
-scale = Vector2( 0.500663, 0.50174 )
+position = Vector2( 490, 310 )
+scale = Vector2( 0.495902, 0.4375 )
 texture = ExtResource( 6 )
+script = ExtResource( 5 )
 
-[node name="Sprite" type="Sprite" parent="." index="5"]
+[node name="vpbk_3" type="Sprite" parent="." index="3"]
 
-position = Vector2( 520, 310 )
-scale = Vector2( 0.440494, 0.414918 )
+position = Vector2( 920, 200 )
+scale = Vector2( 0.41917, 0.414203 )
 texture = ExtResource( 7 )
-__meta__ = {
-"_edit_lock_": true
-}
+script = ExtResource( 5 )
 
-[node name="ServerListWrapper" type="ScrollContainer" parent="." index="6"]
+[node name="Sprite2" type="Sprite" parent="." index="4"]
+
+position = Vector2( 96.9711, 635.732 )
+rotation = 0.00151986
+scale = Vector2( 0.260742, 0.253921 )
+texture = ExtResource( 8 )
+
+[node name="toolbar" type="Sprite" parent="." index="5"]
+
+position = Vector2( 640, 787 )
+scale = Vector2( 0.444753, 0.41216 )
+texture = ExtResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="." index="6"]
+
+position = Vector2( 650, 390 )
+scale = Vector2( 0.440494, 0.414918 )
+texture = ExtResource( 10 )
+
+[node name="ServerListWrapper" type="ScrollContainer" parent="." index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 540.0
-margin_top = 190.0
-margin_right = 833.0
-margin_bottom = 461.0
+margin_left = 670.0
+margin_top = 270.0
+margin_right = 963.0
+margin_bottom = 541.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -87,7 +104,7 @@ scroll_horizontal_enabled = true
 scroll_horizontal = 0
 scroll_vertical_enabled = true
 scroll_vertical = 0
-_sections_unfolded = [ "Scroll", "Theme" ]
+_sections_unfolded = [ "Scroll" ]
 
 [node name="ServerList" type="VBoxContainer" parent="ServerListWrapper" index="0"]
 
@@ -102,9 +119,9 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_constants/separation = 30
 alignment = 0
-_sections_unfolded = [ "custom_constants" ]
+_sections_unfolded = [ "Theme" ]
 
-[node name="Vaporwave_Player" type="AudioStreamPlayer" parent="." index="7"]
+[node name="Vaporwave_Player" type="AudioStreamPlayer" parent="." index="8"]
 
 stream = null
 volume_db = 0.0
@@ -112,23 +129,23 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="HTTPRequest" type="HTTPRequest" parent="." index="8"]
+[node name="HTTPRequest" type="HTTPRequest" parent="." index="9"]
 
 download_file = ""
 use_threads = false
 body_size_limit = -1
 max_redirects = 8
 
-[node name="Input_Create_LobbyName" type="LineEdit" parent="." index="9"]
+[node name="Input_Create_LobbyName" type="LineEdit" parent="." index="10"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 210.0
-margin_top = 330.0
-margin_right = 510.0
-margin_bottom = 355.0
+margin_left = 340.0
+margin_top = 410.0
+margin_right = 640.0
+margin_bottom = 435.0
 rect_min_size = Vector2( 300, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
@@ -139,51 +156,46 @@ size_flags_vertical = 1
 focus_mode = 2
 context_menu_enabled = true
 placeholder_alpha = 0.6
-caret_blink = false
+caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
 _sections_unfolded = [ "Rect" ]
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Input_LobbyName" type="LineEdit" parent="." index="10"]
+[node name="Input_LobbyName" type="LineEdit" parent="." index="11"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 210.0
-margin_top = 200.0
-margin_right = 510.0
-margin_bottom = 224.0
+margin_left = 340.0
+margin_top = 280.0
+margin_right = 640.0
+margin_bottom = 304.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
+theme = ExtResource( 1 )
 focus_mode = 2
 context_menu_enabled = true
 placeholder_alpha = 0.6
-caret_blink = false
+caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Visibility", "custom_colors" ]
-__meta__ = {
-"_edit_lock_": true
-}
+_sections_unfolded = [ "Theme" ]
 
-[node name="Input_Create_LobbyPassword" type="LineEdit" parent="." index="11"]
+[node name="Input_Create_LobbyPassword" type="LineEdit" parent="." index="12"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 210.0
-margin_top = 400.0
-margin_right = 510.0
-margin_bottom = 424.0
+margin_left = 337.0
+margin_top = 473.0
+margin_right = 637.0
+margin_bottom = 497.0
 rect_min_size = Vector2( 300, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
@@ -195,24 +207,21 @@ secret = true
 focus_mode = 2
 context_menu_enabled = true
 placeholder_alpha = 0.6
-caret_blink = false
+caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
 _sections_unfolded = [ "Rect" ]
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Button" type="Button" parent="." index="12"]
+[node name="Button" type="Button" parent="." index="13"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 210.0
-margin_top = 230.0
-margin_right = 298.0
-margin_bottom = 250.0
+margin_left = 340.0
+margin_top = 310.0
+margin_right = 428.0
+margin_bottom = 330.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
@@ -226,20 +235,17 @@ group = null
 text = "Search"
 flat = false
 align = 1
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Button2" type="Button" parent="." index="13"]
+[node name="Button2" type="Button" parent="." index="14"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 210.0
-margin_top = 430.0
-margin_right = 305.0
-margin_bottom = 452.0
+margin_left = 337.0
+margin_top = 503.0
+margin_right = 432.0
+margin_bottom = 525.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
@@ -254,14 +260,7 @@ text = "Create Lobby"
 flat = false
 align = 1
 _sections_unfolded = [ "Rect" ]
-__meta__ = {
-"_edit_lock_": true
-}
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
-
-[connection signal="pressed" from="Button" to="." method="_on_Search_pressed"]
-
-[connection signal="pressed" from="Button2" to="." method="_on_LobbyCreate_pressed"]
 
 

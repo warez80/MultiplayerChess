@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/importance.ogg-d14a3599ac2b78733b5445a734a87fa6.oggstr"
+
+[deps]
+
+source_file="res://importance.ogg"
+source_md5="93633392fc6258438c6fb0e5205738b9"
+
+dest_files=[ "res://.import/importance.ogg-d14a3599ac2b78733b5445a734a87fa6.oggstr" ]
+dest_md5="ea6cfa54513130fe81141a6785145312"
+
+[params]
+
+loop=true
+loop_offset=0

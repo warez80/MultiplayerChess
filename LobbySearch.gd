@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Container
 
 onready var serverBrowser = get_node("ServerListWrapper/ServerList")
 onready var lobbyName = get_node("Input_LobbyName")
@@ -7,11 +7,11 @@ onready var createLobbyPassword = get_node("Input_Create_LobbyPassword")
 onready var player = get_node("Vaporwave_Player")
 onready var desktop = get_node("background")
 
-var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
+var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var userIP = "localhost"
 var song_playing = true
 var song_position = 0
-var song_number = 4
+var song_number = 5
 var elapsed_time = 0
 
 func _ready():
@@ -25,7 +25,6 @@ func _ready():
 	_on_Search_pressed()
 
 
-	
 func _process(delta):
 	
 	# if they want to pause the song

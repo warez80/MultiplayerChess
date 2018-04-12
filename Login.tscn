@@ -124,7 +124,6 @@ size_flags_vertical = 1
 theme = SubResource( 3 )
 focus_mode = 2
 context_menu_enabled = false
-placeholder_alpha = 0.6
 caret_blink = true
 caret_blink_speed = 0.3
 caret_position = 0
