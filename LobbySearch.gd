@@ -6,6 +6,8 @@ onready var createLobbyName = get_node("Input_Create_LobbyName")
 onready var createLobbyPassword = get_node("Input_Create_LobbyPassword")
 onready var player = get_node("Vaporwave_Player")
 onready var desktop = get_node("background")
+onready var timer = get_node("Timer")
+onready var accept_dialog = get_node("AcceptDialog")
 
 var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var userIP = "localhost"
@@ -14,7 +16,11 @@ var song_position = 0
 var song_number = 5
 var elapsed_time = 0
 
+var request_host_ip = ""
+
 func _ready():
+	timer.start()
+	accept_dialog.add_cancel("Decline")
 	
 	var current_song = load(songNames[song_number] + ".ogg")
 	player.set_stream(current_song)
@@ -56,6 +62,9 @@ func _process(delta):
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	print(json.result)
+		
+	if not 'result' in json or json.result == null:
+		return
 	
 	if json.result[0].status == 'Fail':
 		return
@@ -64,8 +73,17 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		_update_Server_Browser(json.result[0].result)
 		
 	if json.result[0].action == 'create_lobby':
-		# GOTO New Lobby
-		return
+		_on_LobbyJoin_pressed(json.result[0].host_ip)
+	
+	# Bunch-o-cases to prevent erros
+	if json.result[0].action == 'get_requests' and len(json.result) > 0 and len(json.result[0].result) > 0:
+		_alert_request(json.result[0].result)
+
+#Pops up a request
+func _alert_request(json):
+	accept_dialog.dialog_text = json[0]['request_name'] + " has invited you to a game. Would you like to join?"
+	request_host_ip = json[0].host_ip
+	accept_dialog.popup()
 
 # Updates the server browser list
 func _update_Server_Browser(json):
@@ -74,8 +92,8 @@ func _update_Server_Browser(json):
 		
 	print("Lobbies:")
 	for entry in json:
-		print(entry)
-		print("---")
+		#print(entry)
+		#print("---")
 		
 		var wrapper = VBoxContainer.new()
 		wrapper.connect("timeout", self, "on_timer_timeout")
@@ -106,7 +124,7 @@ func _on_Search_pressed():
 # User creates lobby
 func _on_LobbyCreate_pressed():
 	var QUERY = "a=create_lobby&t="+global.auth_token+"&n="+createLobbyName.get_text()+"&p="+createLobbyPassword.get_text()+"&i="+userIP
-	print(QUERY)
+	#print(QUERY)
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
 
@@ -116,4 +134,23 @@ func _on_LobbyJoin_pressed(ip):
 	
 func timeout():
 	print("time_out")
+	
+
+func _on_Timer_timeout():
+	var QUERY = "a=get_requests&t="+global.auth_token
+	print(QUERY)
+	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
+	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
+	timer.set_wait_time(5)
+	timer.start()
+
+func _on_AcceptDialog_confirmed():
+	_on_LobbyJoin_pressed(request_host_ip)
+
+
+func _on_Button3_pressed():
+	var QUERY = "a=send_request&t="+global.auth_token+"&h=localhost&i="+global.user_name
+	print(QUERY)
+	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
+	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
 	

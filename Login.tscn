@@ -51,7 +51,7 @@ use_filter = false
 font_data = SubResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 script = ExtResource( 1 )
 
@@ -190,56 +190,6 @@ flat = false
 align = 0
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="localhost HOST" type="Button" parent="Panel" index="4"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 630.0
-margin_top = 428.0
-margin_right = 772.0
-margin_bottom = 487.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "localhost HOST"
-flat = false
-align = 1
-
-[node name="localhost CLIENT" type="Button" parent="Panel" index="5"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 608.0
-margin_top = 506.0
-margin_right = 790.0
-margin_bottom = 557.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "localhost CLIENT"
-flat = false
-align = 1
-
 [node name="HTTPRequest" type="HTTPRequest" parent="." index="1"]
 
 download_file = ""
@@ -270,10 +220,6 @@ max_lines_visible = -1
 _sections_unfolded = [ "Margin", "custom_constants", "custom_fonts" ]
 
 [connection signal="pressed" from="Panel/login_button" to="." method="_on_Button_pressed"]
-
-[connection signal="pressed" from="Panel/localhost HOST" to="." method="_on_localhost_HOST_pressed"]
-
-[connection signal="pressed" from="Panel/localhost CLIENT" to="." method="_on_localhost_CLIENT_pressed"]
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 

@@ -18,6 +18,9 @@ func _ready():
 func _on_HTTPRequest_request_completed( result, response_code, headers, body ):
 	var json = JSON.parse(body.get_string_from_utf8())
 	print(json.result)
+	
+	if not 'result' in json or json.result == null:
+		return
 
 	if errorCount > 4:
 		login.disabled = true
@@ -46,6 +49,8 @@ func _on_Button_pressed():
 		error.set_text("Error: Missing Username or Password")
 		return
 		
+	global.user_name = username.get_text()
+		
 	var QUERY = "a=login&u="+username.get_text()+"&p="+password.get_text()+"&i=localhost"
 
 	if register.is_pressed():
@@ -53,13 +58,3 @@ func _on_Button_pressed():
 		
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
-
-
-func _on_localhost_CLIENT_pressed():
-	global.connect("127.0.0.1")
-	pass
-
-
-func _on_localhost_HOST_pressed():
-	global.setup_game("127.0.0.1")
-	pass
