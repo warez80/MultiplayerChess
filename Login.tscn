@@ -271,6 +271,10 @@ _sections_unfolded = [ "Margin", "custom_constants", "custom_fonts" ]
 
 [connection signal="pressed" from="Panel/login_button" to="." method="_on_Button_pressed"]
 
+[connection signal="pressed" from="Panel/localhost HOST" to="." method="_on_localhost_HOST_pressed"]
+
+[connection signal="pressed" from="Panel/localhost CLIENT" to="." method="_on_localhost_CLIENT_pressed"]
+
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
 
