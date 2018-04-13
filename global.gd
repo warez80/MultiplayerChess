@@ -8,6 +8,8 @@ enum PlayerRole { SPECTATOR, SERVER, CLIENT }
 
 enum PieceType {NONE, BLACK_PAWN, BLACK_KNIGHT, BLACK_ROOK, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, WHITE_PAWN, WHITE_KNIGHT, WHITE_ROOK, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING}
 
+var auth_token = ""
+
 var pieceTypes = []
 
 var network_peer = null
@@ -145,3 +147,4 @@ func connect(ip):
 	chat_messages = []
 	get_tree().change_scene("res://Game_screen.tscn")
 	get_tree().set_network_peer(network_peer)
+

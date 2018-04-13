@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/geography.ogg-5629c8f6c218523a1695ea825990e1e8.oggstr"
+
+[deps]
+
+source_file="res://geography.ogg"
+source_md5="a7ea18a93595d7481b0c38caf9033200"
+
+dest_files=[ "res://.import/geography.ogg-5629c8f6c218523a1695ea825990e1e8.oggstr" ]
+dest_md5="3c993fe2d1a37ea901026217e18d23f2"
+
+[params]
+
+loop=true
+loop_offset=0

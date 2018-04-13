@@ -1,0 +1,32 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/mountain_grid_lobby screen.jpg-744d994f7a47e8bc2a9cc34aeff8ee1e.stex"
+
+[deps]
+
+source_file="res://mountain_grid_lobby screen.jpg"
+source_md5="67609e3631801a3e742e2ec77bee031e"
+
+dest_files=[ "res://.import/mountain_grid_lobby screen.jpg-744d994f7a47e8bc2a9cc34aeff8ee1e.stex" ]
+dest_md5="c0112ac1b3c8726e8230cec0d09b6461"
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
