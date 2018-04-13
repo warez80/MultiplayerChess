@@ -42,7 +42,7 @@ func send_message():
 "
 _sections_unfolded = [ "Resource" ]
 
-[node name="Screen" type="Container" index="0"]
+[node name="Screen" type="Container"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -112,8 +112,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -95.0
 margin_top = 22.0
-margin_right = -95.0
-margin_bottom = 22.0
+margin_right = 175.0
+margin_bottom = 442.0
 rect_min_size = Vector2( 270, 420 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true

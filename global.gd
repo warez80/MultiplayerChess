@@ -13,10 +13,11 @@ var auth_token = ""
 var pieceTypes = []
 
 var network_peer = null
-var my_username = "dummy_username"
+var my_username = ""
 var my_role = null
 var my_type = NONE
 var my_turn = false
+var my_local_ip = IP.get_local_addresses()[4]
 
 var client_init = false
 
@@ -60,14 +61,18 @@ func _client_disconnected(id):
 remote func register_player(id, username):
 	rpc_id(id, "receive_board_update", pieceTypes)
 	broadcast_message(username + " has joined the chat.")
+
 	if client_init:
 		rpc_id(id, "set_role", SPECTATOR)
-		player_info[id] = SPECTATOR
+		player_info[id] = {"id": id, "role": SPECTATOR, "username": username}
 	else:
 		rpc_id(id, "set_role", CLIENT)
 		client_init = true
-		player_info[id] = CLIENT
+		player_info[id] = {"id": id, "role": CLIENT, "username": username}
 		broadcast_message(username + " will be playing as white.")
+	
+	for id in player_info:
+		rpc_id(id, "update_player_info", player_info)
 
 func setup_game(ip):
 	init_game_board()
@@ -78,7 +83,8 @@ func setup_game(ip):
 	network_peer.create_server(GAME_PORT, MAX_PLAYERS)
 	client_init = false
 	# TODO: contact chris's server with `ip`
-	get_tree().change_scene("res://Game_screen.tscn")
+	#get_tree().change_scene("res://Game_screen.tscn")
+	player_info[0] = {"id": 0, "role": SERVER, "username": my_username}
 	get_tree().set_network_peer(network_peer)
 
 func broadcast_message(message):
@@ -90,6 +96,7 @@ remote func receive_chat_from_client(username, message):
 	broadcast_message("<" + username + "> " + message)
 
 remote func receive_chat_broadcast_from_server(message):
+	print(message)
 	chat_messages.append(message)
 	
 func send_chat_to_server(message):
@@ -145,6 +152,18 @@ func connect(ip):
 	network_peer = NetworkedMultiplayerENet.new()
 	network_peer.create_client(ip, GAME_PORT)
 	chat_messages = []
-	get_tree().change_scene("res://Game_screen.tscn")
+	get_tree().change_scene("res://lobby.tscn")
 	get_tree().set_network_peer(network_peer)
+	
+remote func update_player_info(players):
+	player_info = players
 
+# Called by host to start game
+func host_start_game():
+	get_tree().change_scene("res://Game_Screen.tscn")
+	for id in player_info:
+		rpc_id(id, "host_started_game")
+		
+# called when host starts game
+remote func host_started_game():
+	get_tree().change_scene("res://Game_Screen.tscn")

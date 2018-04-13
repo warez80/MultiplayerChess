@@ -46,6 +46,8 @@ func _on_Button_pressed():
 		error.set_text("Error: Missing Username or Password")
 		return
 		
+	global.my_username = username.get_text()
+		
 	var QUERY = "a=login&u="+username.get_text()+"&p="+password.get_text()+"&i=localhost"
 
 	if register.is_pressed():
