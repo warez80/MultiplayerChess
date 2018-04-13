@@ -55,13 +55,3 @@ func _on_Button_pressed():
 		
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
-
-
-func _on_localhost_CLIENT_pressed():
-	global.connect("127.0.0.1")
-	pass
-
-
-func _on_localhost_HOST_pressed():
-	global.setup_game("127.0.0.1")
-	pass
