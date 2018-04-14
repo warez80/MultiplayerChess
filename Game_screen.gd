@@ -133,6 +133,9 @@ func move_piece(from_r, from_c, to_r, to_c):
 	pass
 	
 func is_valid(from_r, from_c, to_r, to_c):
+	#print("valid: from_r = "+str(from_r)+"| from_c = "+str(from_c))
+	#print("     : to_r = "+str(from_r)+"| to_c = "+str(from_c))
+	#print("     : piece = "+str(global.pieceTypes[from_r][from_c]))
 	if from_r == to_r and from_c == to_c:
 		return false
 		
@@ -157,10 +160,12 @@ func is_valid(from_r, from_c, to_r, to_c):
 				return true
 		global.BLACK_BISHOP:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
-				return true
+				if !is_blocked_diag(from_r, from_c, to_r, to_c):
+					return true
 		global.BLACK_QUEEN:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
-				return true
+				if !is_blocked_diag(from_r, from_c, to_r, to_c):
+					return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
 		global.WHITE_PAWN:
@@ -181,15 +186,39 @@ func is_valid(from_r, from_c, to_r, to_c):
 				return true
 		global.WHITE_BISHOP:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
-				return true
+				if !is_blocked_diag(from_r, from_c, to_r, to_c):
+					return true
 		global.WHITE_QUEEN:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
-				return true
+				if !is_blocked_diag(from_r, from_c, to_r, to_c):
+					return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
 	return false
 	
+func is_blocked_cardinal(from_r, from_c, to_r, to_c):
+	
+	return false
+	
 func is_blocked_diag(from_r, from_c, to_r, to_c):
+	var dr = sign(to_r - from_r)
+	var dc = sign(to_c - from_c)
+	
+	var r = from_r + dr
+	var c = from_c + dc
+	
+	while r != to_r and c != to_c:
+		print("BLOCK: r = "+str(r)+"| c = "+str(c))
+		if r < 0 or r >= 8 or c < 0 or c >= 8:
+			print("ERROR: Out of bounds when checking DIAGONALS for BLOCKS")
+			return true
+		if global.pieceTypes[r][c] != global.NONE:
+			return true
+		r += dr
+		c += dc
+		
+	if can_move_piece(to_r, to_c):
+		return true
 	
 	return false
 #func is_blocked(from_r, from_c, to_r, to_c, dr, dc):
