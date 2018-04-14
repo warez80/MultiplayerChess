@@ -42,7 +42,7 @@ func send_message():
 "
 _sections_unfolded = [ "Resource" ]
 
-[node name="Screen" type="Container"]
+[node name="Screen" type="Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
