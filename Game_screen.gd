@@ -86,36 +86,64 @@ func select_tile(r, c):
 		selected_c = -1
 	else:
 		move_piece(selected_r, selected_c, r, c)
+		selected_r=-1
+		selected_c=-1
 
 func move_piece(from_r, from_c, to_r, to_c):
 	if is_valid(from_r, from_c, to_r, to_c):
+		if global.my_type == global.BLACK:
+			for i in range(8):
+				global.pieceTypes[8][i]=global.NONE
+		if global.my_type == global.WHITE:
+			for i in range(8):
+				global.pieceTypes[9][i]=global.NONE
 		global.pieceTypes[to_r][to_c] = global.pieceTypes[from_r][from_c]
 		global.pieceTypes[from_r][from_c] = global.NONE
 		global.send_board_update()
 		global.switch_turn()
 		selected_r = -1
 		selected_c = -1
-	pass
 	
 func is_valid(from_r, from_c, to_r, to_c):
 	var diff_r = from_r - to_r
 	var diff_c = from_c - to_c
-	match pieceTypes[from_r][from_c]:
+	match global.pieceTypes[from_r][from_c]:
 		global.BLACK_PAWN:
-			if (to_c == from_c and to_r == from_r+1):
+			if (to_c == from_c and to_r == from_r+1 and global.pieceTypes[to_r][to_c]==global.NONE):
 				return true
 			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r + 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
 				return true
+			elif to_c == from_c and from_r == 1 and to_r == 3 and global.pieceTypes[to_r][to_c]==global.NONE and global.pieceTypes[to_r-1][to_c]==global.NONE:
+				global.pieceTypes[9][to_c]=global.BLACK_PAWN
+				return true
+			elif abs(diff_c)==1 and to_r==from_r+1 and to_r == 5 and global.pieceTypes[8][to_c]==global.WHITE_PAWN:
+				global.pieceTypes[4][to_c]=global.NONE
+				return true
 		global.BLACK_ROOK:
 			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
+				if from_c==0 and from_r==0:
+					global.pieceTypes[11][0]=global.NONE
+				if from_c==7 and from_r==0:
+					global.pieceTypes[11][7]=global.NONE
 				return true
 		global.BLACK_KING:
 			if abs(diff_c) <= 1 and abs(diff_r) <= 1:
+				global.pieceTypes[11][4]=global.NONE
 				return true
+			elif global.pieceTypes[11][4]==global.BLACK_KING and from_r==0 and from_c==4 and global.pieceTypes[11][0]==global.BLACK_ROOK and to_r==0 and to_c==2:
+				if global.pieceTypes[0][1]==global.NONE and global.pieceTypes[0][2]==global.NONE and global.pieceTypes[0][3]==global.NONE:
+					global.pieceTypes[0][0]=global.NONE
+					global.pieceTypes[0][3]=global.WHITE_ROOK
+					return true
+			elif global.pieceTypes[11][4]==global.BLACK_KING and from_r==0 and from_c==4 and global.pieceTypes[11][7]==global.BLACK_KING and to_r==0 and to_c==6:
+				if global.pieceTypes[0][5]==global.NONE and global.pieceTypes[0][6]==global.NONE:
+					global.pieceTypes[0][7]=global.NONE
+					global.pieceTypes[0][5]=global.WHITE_ROOK
+					return true
 		global.BLACK_KNIGHT:
 			if abs(diff_c) == 1 and abs(diff_r) == 2:
 				return true
-			if abs(diff_r) == 1 and abs(diff_r) == 2:
+			if abs(diff_r) == 1 and abs(diff_c) == 2:
 				return true
 		global.BLACK_BISHOP:
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
@@ -126,16 +154,37 @@ func is_valid(from_r, from_c, to_r, to_c):
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
 		global.WHITE_PAWN:
-			if(to_c == from_c and to_r == from_r-1):
+			if(to_c == from_c and to_r == from_r-1 and global.pieceTypes[to_r][to_c]==global.NONE):
 				return true
 			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r - 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
 				return true
+			elif to_c == from_c and from_r == 6 and to_r == 4 and global.pieceTypes[to_r][to_c]==global.NONE and global.pieceTypes[to_r+1][to_c]==global.NONE:
+				global.pieceTypes[8][to_c]=global.WHITE_PAWN
+				return true
+			elif abs(diff_c)==1 and to_r==from_r-1 and to_r == 2 and global.pieceTypes[9][to_c]==global.BLACK_PAWN:
+				global.pieceTypes[3][to_c]=global.NONE
+				return true
 		global.WHITE_ROOK:
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
+				if from_c==0 and from_r==7:
+					global.pieceTypes[10][0]=global.NONE
+				if from_c==7 and from_r==7:
+					global.pieceTypes[10][7]=global.NONE
 				return true
 		global.WHITE_KING:
 			if abs(diff_c) <= 1 and abs(diff_r) <= 1:
+				global.pieceTypes[10][4]=global.NONE
 				return true
+			elif global.pieceTypes[10][4]==global.WHITE_KING and from_r==7 and from_c==4 and global.pieceTypes[10][0]==global.WHITE_ROOK and to_r==7 and to_c==2:
+				if global.pieceTypes[7][1]==global.NONE and global.pieceTypes[7][2]==global.NONE and global.pieceTypes[7][3]==global.NONE:
+					global.pieceTypes[7][0]=global.NONE
+					global.pieceTypes[7][3]=global.WHITE_ROOK
+					return true
+			elif global.pieceTypes[10][4]==global.WHITE_KING and from_r==7 and from_c==4 and global.pieceTypes[10][7]==global.WHITE_ROOK and to_r==7 and to_c==6:
+				if global.pieceTypes[7][5]==global.NONE and global.pieceTypes[7][6]==global.NONE:
+					global.pieceTypes[7][7]=global.NONE
+					global.pieceTypes[7][5]=global.WHITE_ROOK
+					return true
 		global.WHITE_KNIGHT:
 			if abs(diff_c) == 1 and abs(diff_r) == 2:
 				return true
