@@ -90,18 +90,25 @@ func setup_game(ip):
 	get_tree().set_network_peer(network_peer)
 
 func broadcast_message(message):
+	print("Broadcasting message " + message)
+	print(player_info)
 	for id in player_info:
+		if id < 1:
+			continue
+		print("Sending chat to :" + str(id) + message)
 		rpc_id(id, "receive_chat_broadcast_from_server", message)
 	receive_chat_broadcast_from_server(message)
 
 remote func receive_chat_from_client(username, message):
+	print("Received from client: " + message)
 	broadcast_message("<" + username + "> " + message)
 
 remote func receive_chat_broadcast_from_server(message):
-	print(message)
+	print("Received: " + message)
 	chat_messages.append(message)
 	
 func send_chat_to_server(message):
+	print("Sending: " + message)
 	if my_role == SERVER:
 		receive_chat_from_client(my_username, message)
 	else:

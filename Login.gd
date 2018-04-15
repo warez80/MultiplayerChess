@@ -12,7 +12,7 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	error.set_text("")
-	pass
+
 	
 	
 func _on_HTTPRequest_request_completed( result, response_code, headers, body ):
@@ -32,7 +32,7 @@ func _on_HTTPRequest_request_completed( result, response_code, headers, body ):
 	# Login sucess, go to server browser
 	if json.result[0].action == 'login':
 		global.auth_token = json.result[0].auth_token
-		get_tree().change_scene("res://LobbySearch.tscn")
+		get_tree().change_scene("res://Welcome_2.tscn")
 		return
 
 	# If registration is success, log user in
