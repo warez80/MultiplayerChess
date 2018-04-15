@@ -237,7 +237,7 @@ func is_valid(from_r, from_c, to_r, to_c):
 				global.pieceTypes[3][to_c]=global.NONE
 				return true
 		global.WHITE_ROOK:
-			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)) and is_blocked(from_r, from_c, to_r, to_c):
+			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)) and !is_blocked(from_r, from_c, to_r, to_c):
 				if from_c==0 and from_r==7:
 					global.pieceTypes[10][0]=global.NONE
 				if from_c==7 and from_r==7:
