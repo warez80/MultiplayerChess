@@ -22,6 +22,7 @@ var selected_theme
 var move_theme
 
 var was_pressed = false
+var is_server = false
 
 var visible_grid
 var dr = [-1,  0,  1, 1, 1, 0, -1, -1]
@@ -32,6 +33,8 @@ var dc = [-1, -1, -1, 0, 1, 1,  1,  0]
 # var b = "textvar"
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
+		
 	selected_theme = preload("res://selected_theme.tres")
 	move_theme = preload("res://move_theme.tres")
 	visible_grid = []
@@ -41,7 +44,28 @@ func _ready():
         	visible_grid[x].append(false)
 	pass
 
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	print(json.result)
+		
+	if not 'result' in json or json.result == null:
+		return
+		
+	if json.result[0].action == 'delete_lobby':
+		get_tree().quit()
+		
+func _notification(what):
+	if is_server and what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		var QUERY = "a=delete_lobby&t="+global.auth_token
+		print(QUERY)
+		var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
+		$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
+	elif what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		get_tree().quit()
+
 func _process(delta):
+	is_server = global.my_role == global.PlayerRole.SERVER
+		
 	# Update chat
 	$Chat_Box/BetterChat.text = ""
 	for msg in global.chat_messages:

@@ -10,6 +10,9 @@ onready var timer = get_node("Timer")
 onready var accept_dialog = get_node("AcceptDialog")
 onready var search_button = get_node("Button")
 onready var create_button = get_node("Button2")
+onready var password_dialog = get_node("Password_Dialog")
+onready var acceptPass = get_node("Password_Dialog/acceptPass")
+onready var joinPass = get_node("Password_Dialog/joinPassField")
 
 var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var song_playing = true
@@ -19,7 +22,10 @@ var elapsed_time = 0
 
 var request_host_ip = ""
 
+var lobby_list = {}
+
 func _ready():
+	
 	search_button.icon = load("res://search.png")
 	create_button.icon = load("res://create.png")
 	timer.start()
@@ -96,10 +102,14 @@ func _update_Server_Browser(json):
 	for i in serverBrowser.get_children():
 		i.queue_free()
 		
+	lobby_list.clear()
+	
 	print("Lobbies:")
 	for entry in json:
 		print(entry)
 		print("---")
+		
+		lobby_list["" + entry['host_ip']] = entry['password']
 		
 		var wrapper = VBoxContainer.new()
 		wrapper.connect("timeout", self, "on_timer_timeout")
@@ -130,10 +140,23 @@ func _on_Search_pressed():
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
 
 #Lobby Join
+func _on_LobbyJoin_pressed_w_Pass(ip):
+	print(joinPass.get_text() + " " + lobby_list["" + ip])
+	password_dialog.hide()
+	if joinPass.get_text() == lobby_list["" + ip]:
+		global.connect(ip)
+		get_tree().change_scene("res://lobby.tcsn")
+
 func _on_LobbyJoin_pressed(ip):
-	print("Join Lobby with IP: " + ip)
-	global.connect(ip)
-	get_tree().change_scene("res://lobby.tcsn")
+	print(lobby_list["" + ip] + " " + str(lobby_list["" + ip].length()))
+	if lobby_list["" + ip].length() > 0:
+		print("Password: " + lobby_list[ip])
+		password_dialog.show()
+		acceptPass.connect("pressed", self, "_on_LobbyJoin_pressed_w_Pass", [ip])
+	else:
+		print("Join Lobby with IP: " + ip)
+		global.connect(ip)
+		get_tree().change_scene("res://lobby.tcsn")
 	
 func timeout():
 	print("time_out")
@@ -155,3 +178,7 @@ func _on_createLobby_pressed():
 	print(QUERY)
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
+
+
+func _on_declinePass_pressed():
+	password_dialog.hide()

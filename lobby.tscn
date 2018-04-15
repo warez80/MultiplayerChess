@@ -6,7 +6,7 @@
 [ext_resource path="res://toolbar.png" type="Texture" id=4]
 [ext_resource path="res://start.png" type="Texture" id=5]
 
-[node name="Container" type="Container" index="0"]
+[node name="Container" type="Container"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -15,6 +15,7 @@ anchor_bottom = 0.0
 margin_right = 1280.0
 margin_bottom = 801.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -47,6 +48,7 @@ margin_top = 400.0
 margin_right = 700.0
 margin_bottom = 440.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -100,6 +102,7 @@ margin_top = 134.0
 margin_right = 210.0
 margin_bottom = 148.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -120,6 +123,7 @@ margin_top = 286.0
 margin_right = 1244.0
 margin_bottom = 310.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 1
@@ -143,6 +147,7 @@ margin_top = 234.0
 margin_right = 1202.0
 margin_bottom = 254.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -180,5 +185,7 @@ _sections_unfolded = [ "Transform" ]
 [connection signal="pressed" from="startButton" to="." method="_on_startButton_pressed"]
 
 [connection signal="pressed" from="invitePlayerButton" to="." method="_on_invitePlayerButton_pressed"]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
 
