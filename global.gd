@@ -8,20 +8,25 @@ enum PlayerRole { SPECTATOR, SERVER, CLIENT }
 
 enum PieceType {NONE, BLACK_PAWN, BLACK_KNIGHT, BLACK_ROOK, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, WHITE_PAWN, WHITE_KNIGHT, WHITE_ROOK, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING}
 
+var auth_token = ""
+
 var pieceTypes = []
 
 
 var network_peer = null
-var my_username = "dummy_username"
+var my_username = ""
 var my_role = null
 var my_type = NONE
 var my_turn = false
+var my_local_ip = IP.get_local_addresses()[4]
 
 var client_init = false
 
 var chat_messages = []
 
 var player_info = {}
+
+var fog_war = true
 
 func init_game_board():
 	# 0-7=board, 8-9= en passant, 10-11 = castling
@@ -64,14 +69,18 @@ func _client_disconnected(id):
 remote func register_player(id, username):
 	rpc_id(id, "receive_board_update", pieceTypes)
 	broadcast_message(username + " has joined the chat.")
+
 	if client_init:
 		rpc_id(id, "set_role", SPECTATOR)
-		player_info[id] = SPECTATOR
+		player_info[id] = {"id": id, "role": SPECTATOR, "username": username}
 	else:
 		rpc_id(id, "set_role", CLIENT)
 		client_init = true
-		player_info[id] = CLIENT
+		player_info[id] = {"id": id, "role": CLIENT, "username": username}
 		broadcast_message(username + " will be playing as white.")
+	
+	for id in player_info:
+		rpc_id(id, "update_player_info", player_info)
 
 func setup_game(ip):
 	init_game_board()
@@ -82,21 +91,30 @@ func setup_game(ip):
 	network_peer.create_server(GAME_PORT, MAX_PLAYERS)
 	client_init = false
 	# TODO: contact chris's server with `ip`
-	get_tree().change_scene("res://Game_screen.tscn")
+	#get_tree().change_scene("res://Game_screen.tscn")
+	player_info[0] = {"id": 0, "role": SERVER, "username": my_username}
 	get_tree().set_network_peer(network_peer)
 
 func broadcast_message(message):
+	print("Broadcasting message " + message)
+	print(player_info)
 	for id in player_info:
+		if id < 1:
+			continue
+		print("Sending chat to :" + str(id) + message)
 		rpc_id(id, "receive_chat_broadcast_from_server", message)
 	receive_chat_broadcast_from_server(message)
 
 remote func receive_chat_from_client(username, message):
+	print("Received from client: " + message)
 	broadcast_message("<" + username + "> " + message)
 
 remote func receive_chat_broadcast_from_server(message):
+	print("Received: " + message)
 	chat_messages.append(message)
 	
 func send_chat_to_server(message):
+	print("Sending: " + message)
 	if my_role == SERVER:
 		receive_chat_from_client(my_username, message)
 	else:
@@ -149,5 +167,18 @@ func connect(ip):
 	network_peer = NetworkedMultiplayerENet.new()
 	network_peer.create_client(ip, GAME_PORT)
 	chat_messages = []
-	get_tree().change_scene("res://Game_screen.tscn")
+	get_tree().change_scene("res://lobby.tscn")
 	get_tree().set_network_peer(network_peer)
+	
+remote func update_player_info(players):
+	player_info = players
+
+# Called by host to start game
+func host_start_game():
+	get_tree().change_scene("res://Game_Screen.tscn")
+	for id in player_info:
+		rpc_id(id, "host_started_game")
+		
+# called when host starts game
+remote func host_started_game():
+	get_tree().change_scene("res://Game_Screen.tscn")

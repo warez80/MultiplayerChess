@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Flower_specialty_store.ogg-f6e23e1b09cd54e57dbe07fd49977b40.oggstr"
+
+[deps]
+
+source_file="res://Flower_specialty_store.ogg"
+source_md5="06a232238b8fbacbf21dc0c6060d15e4"
+
+dest_files=[ "res://.import/Flower_specialty_store.ogg-f6e23e1b09cd54e57dbe07fd49977b40.oggstr" ]
+dest_md5="cb55d5eebb63962734a3ffa9cec9787e"
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,17 @@
+[remap]
+
+importer="Theora"
+type="VideoStreamTheora"
+path="res://.import/Mult_Chess.ogv-d0b88a53c64603d96b878ee7d92b58f6.ogvstr"
+
+[deps]
+
+source_file="res://Mult_Chess.ogv"
+source_md5="42dd6983fe164f8492043e8a6a67fecd"
+
+dest_files=[ "res://.import/Mult_Chess.ogv-d0b88a53c64603d96b878ee7d92b58f6.ogvstr" ]
+dest_md5="e292ef033c857afcdce4886a8a1cb155"
+
+[params]
+
+loop=true

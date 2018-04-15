@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/mathematics.ogg-1b5f8f1398156f8c3db9d5b8e808fe7b.oggstr"
+
+[deps]
+
+source_file="res://mathematics.ogg"
+source_md5="440d84b22d11e0b36f6ca6510245d3a7"
+
+dest_files=[ "res://.import/mathematics.ogg-1b5f8f1398156f8c3db9d5b8e808fe7b.oggstr" ]
+dest_md5="ffe29f33ee19d1917d3c96fa4874c7a4"
+
+[params]
+
+loop=true
+loop_offset=0

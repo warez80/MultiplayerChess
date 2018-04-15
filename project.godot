@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="MultiplayerChess"
-run/main_scene="res://Login.tscn"
+run/main_scene="res://Welcome.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -22,6 +22,9 @@ global="*res://global.gd"
 
 window/size/width=1280
 window/size/height=800
+window/size/resizable=false
+window/size/test_width=1280
+window/size/test_height=800
 
 [rendering]
 
