@@ -172,6 +172,8 @@ func is_valid(from_r, from_c, to_r, to_c):
 	#print("     : piece = "+str(global.pieceTypes[from_r][from_c]))
 	if from_r == to_r and from_c == to_c:
 		return false
+	if can_move_piece(to_r, to_c) and global.pieceTypes[to_r][to_c] != global.NONE:
+		return false
 		
 	var diff_r = from_r - to_r
 	var diff_c = from_c - to_c
