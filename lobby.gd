@@ -1,8 +1,5 @@
 extends Container
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 
 onready var startButton = get_node("startButton")
 onready var playerList = get_node("playerList")
@@ -13,10 +10,7 @@ func _ready():
 	# Only host can start game
 	if global.my_role != global.PlayerRole.SERVER:
 		startButton.hide()
-		
-	# Called every time the node is added to the scene.
-	# Initialization here
-	pass
+
 
 func _process(delta):
 	playerList.text = ""
@@ -31,9 +25,8 @@ func _process(delta):
 			role = "Spectator"
 			
 		playerList.add_text(player.username + " (" + role + ")\n")
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+
+
 
 
 func _on_startButton_pressed():

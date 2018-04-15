@@ -18,6 +18,7 @@ var elapsed_time = 0
 var request_host_ip = ""
 
 func _ready():
+	
 	timer.start()
 	accept_dialog.add_cancel("Decline")
 	

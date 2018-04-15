@@ -9,7 +9,7 @@
 [ext_resource path="res://vpbk_3.jpg" type="Texture" id=7]
 [ext_resource path="res://start.png" type="Texture" id=8]
 [ext_resource path="res://toolbar.png" type="Texture" id=9]
-[ext_resource path="res://serverbg.png" type="Texture" id=10]
+[ext_resource path="res://server_browser.png" type="Texture" id=10]
 [ext_resource path="res://win_95.tres" type="Theme" id=11]
 
 [node name="Container" type="Container"]
@@ -19,7 +19,6 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -38,7 +37,6 @@ margin_right = 1024.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1.25, 1.3333 )
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -49,7 +47,7 @@ _sections_unfolded = [ "Anchor", "Margin", "Rect", "Theme" ]
 
 [node name="vpbk_4" type="Sprite" parent="." index="1"]
 
-position = Vector2( 160, 140 )
+position = Vector2( 560, 380 )
 scale = Vector2( 0.171749, 0.1596 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
@@ -63,7 +61,7 @@ script = ExtResource( 5 )
 
 [node name="vpbk_3" type="Sprite" parent="." index="3"]
 
-position = Vector2( 920, 200 )
+position = Vector2( 890, 420 )
 scale = Vector2( 0.41917, 0.414203 )
 texture = ExtResource( 7 )
 script = ExtResource( 5 )
@@ -74,18 +72,21 @@ position = Vector2( 96.9711, 635.732 )
 rotation = 0.00151986
 scale = Vector2( 0.260742, 0.253921 )
 texture = ExtResource( 8 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="toolbar" type="Sprite" parent="." index="5"]
 
-position = Vector2( 640, 787 )
+position = Vector2( 640, 790 )
 scale = Vector2( 0.444753, 0.41216 )
 texture = ExtResource( 9 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="." index="6"]
 
-position = Vector2( 710, 400 )
-scale = Vector2( 0.832895, 0.838688 )
+position = Vector2( 640, 400 )
+scale = Vector2( 1.04817, 1.0254 )
 texture = ExtResource( 10 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="ServerListWrapper" type="ScrollContainer" parent="." index="7"]
 
@@ -93,10 +94,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 740.0
-margin_top = 250.0
-margin_right = 1080.0
-margin_bottom = 600.0
+margin_left = 670.0
+margin_top = 270.0
+margin_right = 920.0
+margin_bottom = 530.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -116,7 +117,6 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -146,13 +146,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 330.0
-margin_top = 420.0
-margin_right = 630.0
-margin_bottom = 445.0
+margin_left = 276.0
+margin_top = 412.0
+margin_right = 576.0
+margin_bottom = 437.0
 rect_min_size = Vector2( 300, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 1
@@ -172,12 +171,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 340.0
-margin_top = 270.0
-margin_right = 640.0
-margin_bottom = 294.0
+margin_left = 275.0
+margin_top = 280.0
+margin_right = 575.0
+margin_bottom = 304.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 1
@@ -198,13 +196,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 340.0
-margin_top = 510.0
-margin_right = 640.0
-margin_bottom = 534.0
+margin_left = 275.0
+margin_top = 506.0
+margin_right = 575.0
+margin_bottom = 530.0
 rect_min_size = Vector2( 300, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 1
@@ -225,12 +222,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 340.0
+margin_left = 275.0
 margin_top = 310.0
-margin_right = 428.0
+margin_right = 363.0
 margin_bottom = 330.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -250,12 +246,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 340.0
-margin_top = 540.0
-margin_right = 435.0
-margin_bottom = 562.0
+margin_left = 275.0
+margin_top = 538.0
+margin_right = 370.0
+margin_bottom = 560.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -280,7 +275,6 @@ anchor_bottom = 0.0
 margin_right = 54.0
 margin_bottom = 30.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1

@@ -7,11 +7,10 @@ var glitching = false
 var exiting = false
 
 func _ready():
-	self.texture = load("res://improved_main.png")	
+	self.texture = load("res://improved_main.png")
 	
 func _glitch_screen(i):
-	var num = i
-	self.texture = load("res://glitch_"+str(num)+".png")
+	self.texture = load("res://glitch_"+str(i)+".png")
 
 func _process(delta):
 	# This function will contain a lot of visual effects, to emulate

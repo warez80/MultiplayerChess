@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Welcome_2.gd" type="Script" id=1]
+[ext_resource path="res://vpbk_login_4.jpg" type="Texture" id=2]
+[ext_resource path="res://start.png" type="Texture" id=3]
+[ext_resource path="res://toolbar.png" type="Texture" id=4]
+[ext_resource path="res://first_welcome.png" type="Texture" id=5]
+
+[node name="Container" type="Container" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1280.0
+margin_bottom = 800.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="background" type="Sprite" parent="." index="0"]
+
+position = Vector2( 639.772, 400.003 )
+scale = Vector2( 1.2485, 1.33445 )
+texture = ExtResource( 2 )
+
+[node name="start" type="Sprite" parent="." index="1"]
+
+position = Vector2( 96.9711, 635.732 )
+scale = Vector2( 0.260742, 0.253921 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="toolbar" type="Sprite" parent="." index="2"]
+
+position = Vector2( 640, 787 )
+scale = Vector2( 0.444753, 0.41216 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="welcome_img" type="Sprite" parent="." index="3"]
+
+position = Vector2( 640, 400 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+
+
