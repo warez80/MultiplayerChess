@@ -14,6 +14,11 @@ func _ready():
 		startButton.hide()
 
 func _process(delta):
+	
+	if (Input.is_action_pressed("ui_cancel")):
+		get_tree().change_scene("res://LobbySearch.tscn")
+
+		
 	playerList.text = ""
 	for id in global.player_info:
 		var player = global.player_info[id]
