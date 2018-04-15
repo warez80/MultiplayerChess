@@ -25,6 +25,8 @@ var chat_messages = []
 
 var player_info = {}
 
+var fog_war = true
+
 func init_game_board():
 	for i in range(8):
 		pieceTypes.append([NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE])
