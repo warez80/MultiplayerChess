@@ -12,6 +12,7 @@ var auth_token = ""
 
 var pieceTypes = []
 
+
 var network_peer = null
 var my_username = ""
 var my_role = null
@@ -28,30 +29,35 @@ var player_info = {}
 var fog_war = true
 
 func init_game_board():
-	for i in range(8):
+	# 0-7=board, 8-9= en passant, 10-11 = castling
+	
+	for i in range(10):
 		pieceTypes.append([NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE])
+	
+	pieceTypes.append([WHITE_ROOK, NONE, NONE, NONE,WHITE_KING, NONE, NONE, WHITE_ROOK])
+	pieceTypes.append([BLACK_ROOK, NONE, NONE, BLACK_KING, NONE , NONE, NONE, BLACK_ROOK])
 	
 	for i in range(8):
 		pieceTypes[1][i] = BLACK_PAWN
-		pieceTypes[-2][i] = WHITE_PAWN
+		pieceTypes[6][i] = WHITE_PAWN
 	
 	pieceTypes[0][0] = BLACK_ROOK
-	pieceTypes[0][-1] = BLACK_ROOK
+	pieceTypes[0][7] = BLACK_ROOK
 	pieceTypes[0][1] = BLACK_KNIGHT
-	pieceTypes[0][-2] = BLACK_KNIGHT
+	pieceTypes[0][6] = BLACK_KNIGHT
 	pieceTypes[0][2] = BLACK_BISHOP
-	pieceTypes[0][-3] = BLACK_BISHOP
+	pieceTypes[0][5] = BLACK_BISHOP
 	pieceTypes[0][3] = BLACK_QUEEN
-	pieceTypes[0][-4] = BLACK_KING
+	pieceTypes[0][4] = BLACK_KING
 	
-	pieceTypes[-1][0] = WHITE_ROOK
-	pieceTypes[-1][-1] = WHITE_ROOK
-	pieceTypes[-1][1] = WHITE_KNIGHT
-	pieceTypes[-1][-2] = WHITE_KNIGHT
-	pieceTypes[-1][2] = WHITE_BISHOP
-	pieceTypes[-1][-3] = WHITE_BISHOP
-	pieceTypes[-1][3] = WHITE_QUEEN
-	pieceTypes[-1][-4] = WHITE_KING
+	pieceTypes[7][0] = WHITE_ROOK
+	pieceTypes[7][7] = WHITE_ROOK
+	pieceTypes[7][1] = WHITE_KNIGHT
+	pieceTypes[7][6] = WHITE_KNIGHT
+	pieceTypes[7][2] = WHITE_BISHOP
+	pieceTypes[7][5] = WHITE_BISHOP
+	pieceTypes[7][3] = WHITE_QUEEN
+	pieceTypes[7][4] = WHITE_KING
 
 func _ready():
 	get_tree().connect("network_peer_disconnected", self, "_client_disconnected")
