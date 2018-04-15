@@ -1,5 +1,4 @@
 extends Container
-#
 onready var grid = [[$Chess_Board/r0c0, $Chess_Board/r0c1, $Chess_Board/r0c2, $Chess_Board/r0c3, $Chess_Board/r0c4, $Chess_Board/r0c5, $Chess_Board/r0c6, $Chess_Board/r0c7], [$Chess_Board/r1c0, $Chess_Board/r1c1, $Chess_Board/r1c2, $Chess_Board/r1c3, $Chess_Board/r1c4, $Chess_Board/r1c5, $Chess_Board/r1c6, $Chess_Board/r1c7], [$Chess_Board/r2c0, $Chess_Board/r2c1, $Chess_Board/r2c2, $Chess_Board/r2c3, $Chess_Board/r2c4, $Chess_Board/r2c5, $Chess_Board/r2c6, $Chess_Board/r2c7], [$Chess_Board/r3c0, $Chess_Board/r3c1, $Chess_Board/r3c2, $Chess_Board/r3c3, $Chess_Board/r3c4, $Chess_Board/r3c5, $Chess_Board/r3c6, $Chess_Board/r3c7], [$Chess_Board/r4c0, $Chess_Board/r4c1, $Chess_Board/r4c2, $Chess_Board/r4c3, $Chess_Board/r4c4, $Chess_Board/r4c5, $Chess_Board/r4c6, $Chess_Board/r4c7], [$Chess_Board/r5c0, $Chess_Board/r5c1, $Chess_Board/r5c2, $Chess_Board/r5c3, $Chess_Board/r5c4, $Chess_Board/r5c5, $Chess_Board/r5c6, $Chess_Board/r5c7], [$Chess_Board/r6c0, $Chess_Board/r6c1, $Chess_Board/r6c2, $Chess_Board/r6c3, $Chess_Board/r6c4, $Chess_Board/r6c5, $Chess_Board/r6c6, $Chess_Board/r6c7], [$Chess_Board/r7c0, $Chess_Board/r7c1, $Chess_Board/r7c2, $Chess_Board/r7c3, $Chess_Board/r7c4, $Chess_Board/r7c5, $Chess_Board/r7c6, $Chess_Board/r7c7]]
 
 var TEX_BLACK_PAWN = preload("res://gamePieces/Black/pawnB.png")
@@ -18,11 +17,19 @@ var TEX_WHITE_BISHOP = preload("res://gamePieces/White/bishopW.png")
 var selected_r = -1
 var selected_c = -1
 
+var selected_theme
+var move_theme
+
 var was_pressed = false
 
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+
+func _ready():
+	selected_theme = preload("res://selected_theme.tres")
+	move_theme = preload("res://move_theme.tres")
+	pass
 
 func _process(delta):
 	# Update chat
@@ -71,16 +78,35 @@ func _process(delta):
 				break
 	
 	was_pressed = is_pressed
+	
+	for i in range(8):
+		for j in range(8):
+			grid[i][j].set_flat(true)
+			grid[i][j].set_theme(null)
+	
+			
+	if selected_r != -1 and selected_c != -1:
+		grid[selected_r][selected_c].set_flat(false)
+		grid[selected_r][selected_c].set_theme(selected_theme)
+		
+		for i in range(8):
+			for j in range(8):
+				if is_valid(selected_r, selected_c, i, j):
+					grid[i][j].set_flat(false)
+					grid[i][j].set_theme(move_theme)
 
 func select_tile(r, c):
 	print(str(r) + str(c))
 	if !global.my_turn:
+		selected_r = -1
+		selected_c = -1
 		return
-	if selected_r == -1 and selected_c == -1:
+	elif selected_r == -1 and selected_c == -1:
 		if global.pieceTypes[r][c] == global.NONE or !can_move_piece(r, c):
 			return
 		selected_r = r
 		selected_c = c
+		
 	elif selected_r == r and selected_c == c:
 		selected_r = -1
 		selected_c = -1
@@ -88,6 +114,15 @@ func select_tile(r, c):
 		move_piece(selected_r, selected_c, r, c)
 		selected_r=-1
 		selected_c=-1
+	pass
+
+# Just deals with buttons for now
+func toggle_selection(r, c):
+	if(!grid[r][c].get_theme().equals(selected_theme)):
+		grid[r][c].set_theme(selected_theme)
+	else:
+		grid[r][c].set_theme(null)
+	pass
 
 func move_piece(from_r, from_c, to_r, to_c):
 	if is_valid(from_r, from_c, to_r, to_c):
@@ -105,6 +140,9 @@ func move_piece(from_r, from_c, to_r, to_c):
 		selected_c = -1
 	
 func is_valid(from_r, from_c, to_r, to_c):
+	if from_r == to_r and from_c == to_c:
+		return false
+		
 	var diff_r = from_r - to_r
 	var diff_c = from_c - to_c
 	match global.pieceTypes[from_r][from_c]:
@@ -198,6 +236,10 @@ func is_valid(from_r, from_c, to_r, to_c):
 				return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				return true
+	return false
+	
+func is_blocked_diag(from_r, from_c, to_r, to_c):
+	
 	return false
 #func is_blocked(from_r, from_c, to_r, to_c, dr, dc):
 #	print("dr = "+str(dr)+"|dc = "+str(dc))
