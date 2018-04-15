@@ -59,6 +59,7 @@ group = null
 text = "Start Game"
 flat = false
 align = 1
+_sections_unfolded = [ "Rect" ]
 
 [node name="playerList" type="RichTextLabel" parent="." index="3"]
 
