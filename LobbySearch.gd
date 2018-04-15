@@ -8,6 +8,8 @@ onready var player = get_node("Vaporwave_Player")
 onready var desktop = get_node("background")
 onready var timer = get_node("Timer")
 onready var accept_dialog = get_node("AcceptDialog")
+onready var search_button = get_node("Button")
+onready var create_button = get_node("Button2")
 
 var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var song_playing = true
@@ -18,7 +20,8 @@ var elapsed_time = 0
 var request_host_ip = ""
 
 func _ready():
-	
+	search_button.icon = load("res://search.png")
+	create_button.icon = load("res://create.png")
 	timer.start()
 	accept_dialog.add_cancel("Decline")
 	
@@ -114,8 +117,10 @@ func _update_Server_Browser(json):
 		wrapper.add_child(buttonWrapper)
 		
 		var join = Button.new()
-		join.set_text("Join")
+		join.icon = load("res://join.png")
+		join.set_scale(Vector2(0.1, 0.1))
 		buttonWrapper.add_child(join)
+		
 		join.connect("pressed", self, "_on_LobbyJoin_pressed", [entry['host_ip']])
 
 # User pressed search button

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Welcome_2.gd" type="Script" id=1]
-[ext_resource path="res://vpbk_login_4.jpg" type="Texture" id=2]
+[ext_resource path="res://vpbk_login_3.jpg" type="Texture" id=2]
 [ext_resource path="res://start.png" type="Texture" id=3]
 [ext_resource path="res://toolbar.png" type="Texture" id=4]
 [ext_resource path="res://first_welcome.png" type="Texture" id=5]

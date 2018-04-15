@@ -6,7 +6,7 @@ onready var playerList = get_node("playerList")
 onready var invitePlayerName = get_node("invitePlayerName")
 
 func _ready():
-	
+	startButton.icon = load("res://start.png")
 	# Only host can start game
 	if global.my_role != global.PlayerRole.SERVER:
 		startButton.hide()
