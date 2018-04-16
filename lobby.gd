@@ -4,10 +4,19 @@ onready var startButton = get_node("startButton")
 onready var behindStart = get_node("back")
 onready var playerList = get_node("playerList")
 onready var invitePlayerName = get_node("invitePlayerName")
+onready var music = get_node("Wait_Music")
+
+var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 
 func _ready():
 	
 	startButton.icon = load("res://Start_button.png")
+	
+	# Need some nice music for the lobby
+	var song = load("alt_lobby_music.ogg")
+	music.set_stream(song)
+	music.play()
+	
 	# Only host can start game
 	if global.my_role != global.PlayerRole.SERVER:
 		behindStart.hide()
@@ -17,8 +26,7 @@ func _process(delta):
 	
 	if (Input.is_action_pressed("ui_cancel")):
 		get_tree().change_scene("res://LobbySearch.tscn")
-
-		
+	
 	playerList.text = ""
 	for id in global.player_info:
 		var player = global.player_info[id]

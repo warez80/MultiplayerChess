@@ -29,11 +29,20 @@ var visible_grid
 var dr = [-1,  0,  1, 1, 1, 0, -1, -1]
 var dc = [-1, -1, -1, 0, 1, 1,  1,  0]
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+# Music stuff
+onready var player = get_node("player")
+var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
+var song_playing = true
+var song_position = 0
+var song_number = 5
+var elapsed_time = 0
 
 func _ready():
+	
+	# More music stuff
+	var current_song = load(songNames[song_number] + ".ogg")
+	player.set_stream(current_song)
+	player.play()
 	selected_theme = preload("res://selected_theme.tres")
 	move_theme = preload("res://move_theme.tres")
 	visible_grid = []
@@ -41,9 +50,40 @@ func _ready():
     	visible_grid.append([])
 	    for y in range(8):
         	visible_grid[x].append(false)
-	pass
+
 
 func _process(delta):
+	
+	#MORE music stuff
+	# if they want to pause the song
+	if Input.is_action_pressed("ui_select"):
+		if song_playing:
+			song_playing = false
+			song_position = player.get_playback_position()
+			player.stop()
+		else:
+			song_playing = true
+			player.play(song_position)
+
+	# if they want to play a different song
+	if Input.is_action_just_pressed("ui_left"):
+		song_number = song_number - 1
+		if song_number >= len(songNames):
+			song_number = 0
+			
+		var current_song = load(songNames[song_number] + ".ogg")
+		player.set_stream(current_song)
+		player.play()
+		
+	if Input.is_action_just_pressed("ui_right"):
+		song_number = song_number + 1 
+		if song_number < 0 :
+			song_number = len(songNames) - 1
+		var current_song = load(songNames[song_number] + ".ogg")
+		player.set_stream(current_song)
+		player.play()
+		
+	#Music stuff is done
 	# Update chat
 	$Chat_Box/BetterChat.text = ""
 	for msg in global.chat_messages:
