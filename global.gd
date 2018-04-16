@@ -7,11 +7,14 @@ enum PlayerType { NONE, BLACK, WHITE }
 enum PlayerRole { SPECTATOR, SERVER, CLIENT }
 
 enum PieceType {NONE, BLACK_PAWN, BLACK_KNIGHT, BLACK_ROOK, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, WHITE_PAWN, WHITE_KNIGHT, WHITE_ROOK, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING}
-
+onready var piece_strings = ["NONE", "Black Pawn", "Black Knight", "Black Rook", "Black Bishop", "Black Queen", "Black King", "White Pawn", "White Knight", "White Rook", "White Bishop", "White Queen", "White King"]
+onready var row_strings = ["8", "7", "6", "5", "4", "3", "2", "1"]
+onready var col_strings = ["a", "b", "c", "d", "e", "f", "g", "h"]
 var auth_token = ""
 
 var pieceTypes = []
 
+onready var turn_num = 1
 
 var network_peer = null
 var my_username = ""
@@ -145,6 +148,7 @@ remote func set_role(role):
 func switch_turn():
 	if !my_turn:
 		return
+	turn_num += 1
 	if my_role == SERVER:
 		receive_turn(CLIENT)
 		send_turn_update_to_all_clients(CLIENT)
@@ -182,3 +186,12 @@ func host_start_game():
 # called when host starts game
 remote func host_started_game():
 	get_tree().change_scene("res://Game_Screen.tscn")
+	
+# add string to move list
+func add_move_to_list(move_str):
+	pass
+
+func gen_move_str(from_r, from_c, to_r, to_c):
+	var piece = piece_strings[pieceTypes[from_r][from_c]]
+	return "%s. %s: %s%s -> %s%s" % [str(turn_num), piece, col_strings[from_c], row_strings[from_r], col_strings[to_c], row_strings[to_r]]
+	

@@ -21,7 +21,9 @@ var selected_c = -1
 var selected_theme
 var move_theme
 
-var was_pressed = false
+onready var was_pressed = false
+#onready var in_check = false
+
 
 var visible_grid
 var dr = [-1,  0,  1, 1, 1, 0, -1, -1]
@@ -193,6 +195,7 @@ func toggle_selection(r, c):
 
 func move_piece(from_r, from_c, to_r, to_c):
 	if is_valid(from_r, from_c, to_r, to_c):
+		global.add_move_to_list(from_r, from_c, to_r, to_c)
 		if global.my_type == global.BLACK:
 			for i in range(8):
 				global.pieceTypes[8][i]=global.NONE
@@ -201,18 +204,18 @@ func move_piece(from_r, from_c, to_r, to_c):
 				global.pieceTypes[9][i]=global.NONE
 		global.pieceTypes[to_r][to_c] = global.pieceTypes[from_r][from_c]
 		global.pieceTypes[from_r][from_c] = global.NONE
+		global.add_move_to_list()
 		global.send_board_update()
 		global.switch_turn()
 		selected_r = -1
 		selected_c = -1
 	
 func is_valid(from_r, from_c, to_r, to_c):
-	#print("valid: from_r = "+str(from_r)+"| from_c = "+str(from_c))
-	#print("     : to_r = "+str(from_r)+"| to_c = "+str(from_c))
-	#print("     : piece = "+str(global.pieceTypes[from_r][from_c]))
 	if from_r == to_r and from_c == to_c:
 		return false
 	if can_move_piece(to_r, to_c) and global.pieceTypes[to_r][to_c] != global.NONE:
+		return false
+	if global.pieceTypes[from_r][from_c] == global.NONE:
 		return false
 		
 	var diff_r = from_r - to_r
@@ -352,7 +355,7 @@ func _on_SendChatButton_pressed():
 	global.send_chat_to_server($Text_Input/ChatInputBox.text)
 	$Text_Input/ChatInputBox.text = ""
 
-# If the piece at rc is yours, return false, otherwise, true
+# If the piece at rc is yours, return true, otherwise, false
 func can_move_piece(r, c):
 	match global.pieceTypes[r][c]:
 		global.BLACK_ROOK, global.BLACK_KING, global.BLACK_BISHOP, global.BLACK_QUEEN, global.BLACK_PAWN, global.BLACK_KNIGHT:
