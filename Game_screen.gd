@@ -196,6 +196,8 @@ func is_valid(from_r, from_c, to_r, to_c):
 	#print("     : piece = "+str(global.pieceTypes[from_r][from_c]))
 	if from_r == to_r and from_c == to_c:
 		return false
+	if can_move_piece(to_r, to_c) and global.pieceTypes[to_r][to_c] != global.NONE:
+		return false
 		
 	var diff_r = from_r - to_r
 	var diff_c = from_c - to_c
@@ -259,7 +261,7 @@ func is_valid(from_r, from_c, to_r, to_c):
 				global.pieceTypes[3][to_c]=global.NONE
 				return true
 		global.WHITE_ROOK:
-			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)) and is_blocked(from_r, from_c, to_r, to_c):
+			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)) and !is_blocked(from_r, from_c, to_r, to_c):
 				if from_c==0 and from_r==7:
 					global.pieceTypes[10][0]=global.NONE
 				if from_c==7 and from_r==7:

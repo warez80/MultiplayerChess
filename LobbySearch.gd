@@ -17,7 +17,7 @@ onready var joinPass = get_node("Password_Dialog/joinPassField")
 var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var song_playing = true
 var song_position = 0
-var song_number = 5
+var song_number = 4
 var elapsed_time = 0
 
 var request_host_ip = ""
