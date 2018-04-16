@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/lobby_music.ogg-ea74b6200a7975a8fac516c7b2d2bbfd.oggstr"
+
+[deps]
+
+source_file="res://lobby_music.ogg"
+source_md5="782fb1eb4fba0fd095d8e9f4d2ed3c36"
+
+dest_files=[ "res://.import/lobby_music.ogg-ea74b6200a7975a8fac516c7b2d2bbfd.oggstr" ]
+dest_md5="23a5f3424755849fc091b42e964a124a"
+
+[params]
+
+loop=true
+loop_offset=0

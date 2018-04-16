@@ -6,14 +6,13 @@ onready var playerList = get_node("playerList")
 onready var invitePlayerName = get_node("invitePlayerName")
 onready var music = get_node("Wait_Music")
 
-var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 
 func _ready():
 	
 	startButton.icon = load("res://Start_button.png")
 	
 	# Need some nice music for the lobby
-	var song = load("alt_lobby_music.ogg")
+	var song = load("lobby_music.ogg")
 	music.set_stream(song)
 	music.play()
 	
