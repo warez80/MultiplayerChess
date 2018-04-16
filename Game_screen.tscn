@@ -1980,6 +1980,14 @@ flat = true
 align = 1
 _sections_unfolded = [ "Material", "Rect", "Visibility" ]
 
+[node name="player" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = null
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [connection signal="pressed" from="Text_Input/SendChatButton" to="." method="_on_SendChatButton_pressed"]
 
 
