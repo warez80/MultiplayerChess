@@ -30,7 +30,7 @@ var move_messages = []
 
 var player_info = {}
 
-var fog_war = true
+var fog_war = false
 
 func init_game_board():
 	# 0-7=board, 8-9= en passant, 10-11 = castling
