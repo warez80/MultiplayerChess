@@ -1,6 +1,7 @@
 extends Container
 
 onready var serverBrowser = get_node("ServerListWrapper/ServerList")
+onready var list = get_node("ServerListWrapper")
 onready var lobbyName = get_node("Input_LobbyName")
 onready var createLobbyName = get_node("Input_Create_LobbyName")
 onready var createLobbyPassword = get_node("Input_Create_LobbyPassword")
@@ -14,34 +15,50 @@ onready var password_dialog = get_node("Password_Dialog")
 onready var acceptPass = get_node("Password_Dialog/acceptPass")
 onready var joinPass = get_node("Password_Dialog/joinPassField")
 
+# Music stuff
 var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
 var song_playing = true
 var song_position = 0
-var song_number = 4
+var song_number = 5
 var elapsed_time = 0
 
+# Anim. Stuff
+onready var welc_img = get_node("server_browser")
+onready var background = get_node("background")
+var shrink = false
+var grow = false
+var change = false
+var X = 1
+var Y = 1
+var DX = 0.1
+var time_passed = 0
+var calls_per_sec = 3
+var time_for_one_call = 1 / calls_per_sec
+
 var request_host_ip = ""
+var IP = ""
 
 var lobby_list = {}
 
 func _ready():
-	
+
 	search_button.icon = load("res://search.png")
 	create_button.icon = load("res://create.png")
 	timer.start()
 	accept_dialog.add_cancel("Decline")
-	
+
 	var current_song = load(songNames[song_number] + ".ogg")
 	player.set_stream(current_song)
-	
+
 	if song_playing:
 		player.play()
-		
+
+
 	_on_Search_pressed()
 
 
 func _process(delta):
-	
+
 	# if they want to pause the song
 	if Input.is_action_pressed("ui_select"):
 		if song_playing:
@@ -57,40 +74,87 @@ func _process(delta):
 		song_number = song_number - 1
 		if song_number >= len(songNames):
 			song_number = 0
-			
+
 		var current_song = load(songNames[song_number] + ".ogg")
 		player.set_stream(current_song)
-		
+		player.play()
+
 	if Input.is_action_just_pressed("ui_right"):
-		song_number = song_number + 1 
+		song_number = song_number + 1
 		if song_number < 0 :
 			song_number = len(songNames) - 1
 		var current_song = load(songNames[song_number] + ".ogg")
 		player.set_stream(current_song)
+		player.play()
+
+	# Animation Stuff
+	time_passed += delta
+
+	if((shrink or grow) and (time_passed >= time_for_one_call)):
+		_exit_animation()
+		time_passed -= time_for_one_call
+
+	if(welc_img.scale.x <= 0 or welc_img.scale.y <= 0):
+		shrink = false
+		grow = true
+
+	if(welc_img.scale.x >= 10 or welc_img.scale.y >= 10):
+		background.texture = load("res://vpbk_login_6.jpg")
+		welc_img.texture = load("res://lobby_pic.png")
+		grow = false
+		shrink = true
+		change = true
+
+	# if ESC is pressed, quit the game
+	if(Input.is_action_pressed("ui_cancel")):
+		get_tree().quit()
+
+func _exit_animation():
+	serverBrowser.hide()
+	createLobbyName.hide()
+	createLobbyPassword.hide()
+	search_button.hide()
+	create_button.hide()
+	list.hide()
+	if(shrink):
+		DX = 0.2
+		welc_img.scale.x -= DX
+		welc_img.scale.y -= DX
+		if(welc_img.scale.x <= 1 and welc_img.scale.y <= 1):
+			#finally ready to transition
+			if(change):
+				global.connect(IP)
+				get_tree().change_scene("res://lobby.tscn")
+
+	if(grow):
+		DX = 0.3
+		welc_img.scale.x += DX
+		welc_img.scale.y += DX
+
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	print(json.result)
-		
+
 	if not 'result' in json or json.result == null:
 		return
-	
+
 	if json.result[0].status == 'Fail':
 		return
-		
+
 	print(json.result[0].action)
-		
+
 	if json.result[0].action == 'lobby_search':
 		_update_Server_Browser(json.result[0].result)
-		
+
 	if json.result[0].action == 'create_lobby':
 		global.setup_game("127.0.0.1")
 		get_tree().change_scene("res://lobby.tscn")
-	
+
 	# Bunch-o-cases to prevent erros
 	if json.result[0].action == 'get_requests' and len(json.result) > 0 and len(json.result[0].result) > 0:
 		_alert_request(json.result[0].result)
-		
+
 #Pops up a request
 func _alert_request(json):
 	accept_dialog.dialog_text = json[0]['request_name'] + " has invited you to a game. Would you like to join?"
@@ -99,38 +163,39 @@ func _alert_request(json):
 
 # Updates the server browser list
 func _update_Server_Browser(json):
+
 	for i in serverBrowser.get_children():
 		i.queue_free()
-		
+
 	lobby_list.clear()
-	
+
 	print("Lobbies:")
 	for entry in json:
 		print(entry)
 		print("---")
-		
+
 		lobby_list["" + entry['host_ip']] = entry['password']
-		
+
 		var wrapper = VBoxContainer.new()
 		wrapper.connect("timeout", self, "on_timer_timeout")
 		serverBrowser.add_child(wrapper)
-		
+
 		var title = Label.new()
 		title.set_text(entry['lobby_name'])
 		wrapper.add_child(title)
-		
+
 		var host = Label.new()
 		host.set_text(entry['host_name'])
 		wrapper.add_child(host)
-		
+
 		var buttonWrapper = HBoxContainer.new()
 		wrapper.add_child(buttonWrapper)
-		
+
 		var join = Button.new()
-		join.icon = load("res://join.png")
+		join.icon = load("res://join_new.png")
 		join.set_scale(Vector2(0.1, 0.1))
 		buttonWrapper.add_child(join)
-		
+
 		join.connect("pressed", self, "_on_LobbyJoin_pressed", [entry['host_ip']])
 
 # User pressed search button
@@ -145,7 +210,9 @@ func _on_LobbyJoin_pressed_w_Pass(ip):
 	password_dialog.hide()
 	if joinPass.get_text() == lobby_list["" + ip]:
 		global.connect(ip)
-		get_tree().change_scene("res://lobby.tcsn")
+#		get_tree().change_scene("res://lobby.tcsn")
+		shrink = true
+		IP = ip
 
 func _on_LobbyJoin_pressed(ip):
 	print(lobby_list["" + ip] + " " + str(lobby_list["" + ip].length()))
@@ -156,11 +223,13 @@ func _on_LobbyJoin_pressed(ip):
 	else:
 		print("Join Lobby with IP: " + ip)
 		global.connect(ip)
-		get_tree().change_scene("res://lobby.tcsn")
-	
+#		get_tree().change_scene("res://lobby.tcsn")
+		shrink = true
+		IP = ip
+
 func timeout():
 	print("time_out")
-	
+
 func _on_AcceptDialog_confirmed():
 	_on_LobbyJoin_pressed(request_host_ip)
 

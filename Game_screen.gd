@@ -21,20 +21,34 @@ var selected_c = -1
 var selected_theme
 var move_theme
 
+<<<<<<< HEAD
 var was_pressed = false
 var is_server = false
+=======
+onready var was_pressed = false
+#onready var in_check = false
+
+>>>>>>> 83050f664bbd89fc21ce0670ead54912fe143fa3
 
 var visible_grid
 var dr = [-1,  0,  1, 1, 1, 0, -1, -1]
 var dc = [-1, -1, -1, 0, 1, 1,  1,  0]
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+# Music stuff
+onready var player = get_node("player")
+var songNames = ["boot", "ECCO_and_chill_diving", "Flower_specialty_store", "geography", "importance", "LisaFrank_420_Modern_Computing", "mathematics", "The", "Untitled_1", "Untitled_2", "Wait"]
+var song_playing = true
+var song_position = 0
+var song_number = 5
+var elapsed_time = 0
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
-		
+
+	# More music stuff
+	var current_song = load(songNames[song_number] + ".ogg")
+	player.set_stream(current_song)
+	player.play()
 	selected_theme = preload("res://selected_theme.tres")
 	move_theme = preload("res://move_theme.tres")
 	visible_grid = []
@@ -42,18 +56,18 @@ func _ready():
     	visible_grid.append([])
 	    for y in range(8):
         	visible_grid[x].append(false)
-	pass
+
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	print(json.result)
-		
+
 	if not 'result' in json or json.result == null:
 		return
-		
+
 	if json.result[0].action == 'delete_lobby':
 		get_tree().quit()
-		
+
 func _notification(what):
 	if is_server and what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		var QUERY = "a=delete_lobby&t="+global.auth_token
@@ -65,18 +79,54 @@ func _notification(what):
 
 func _process(delta):
 	is_server = global.my_role == global.PlayerRole.SERVER
-		
+
+
+	#MORE music stuff
+	# if they want to pause the song
+	if Input.is_action_pressed("ui_select"):
+		if song_playing:
+			song_playing = false
+			song_position = player.get_playback_position()
+			player.stop()
+		else:
+			song_playing = true
+			player.play(song_position)
+
+	# if they want to play a different song
+	if Input.is_action_just_pressed("ui_left"):
+		song_number = song_number - 1
+		if song_number >= len(songNames):
+			song_number = 0
+
+		var current_song = load(songNames[song_number] + ".ogg")
+		player.set_stream(current_song)
+		player.play()
+
+	if Input.is_action_just_pressed("ui_right"):
+		song_number = song_number + 1
+		if song_number < 0 :
+			song_number = len(songNames) - 1
+		var current_song = load(songNames[song_number] + ".ogg")
+		player.set_stream(current_song)
+		player.play()
+
+	#Music stuff is done
 	# Update chat
 	$Chat_Box/BetterChat.text = ""
 	for msg in global.chat_messages:
 		$Chat_Box/BetterChat.add_text(msg + "\n")
-		
+
+	# Update moves
+	$Move_Log/BetterLog.text = ""
+	for msg in global.move_messages:
+		$Move_Log/BetterLog.add_text(msg + "\n")
+
 	# Update visibility
 	if global.fog_war:
 		for i in range(8):
 			for j in range(8):
 				visible_grid[i][j] = false
-				
+
 		for i in range(8):
 			for j in range(8):
 				if can_move_piece(i, j):
@@ -84,7 +134,7 @@ func _process(delta):
 					for d in range(dr.size()):
 						if in_bounds(i+dr[d], j+dc[d]):
 							visible_grid[i+dr[d]][j+dc[d]] = true
-	
+
 	# Update piece icons
 	for i in range(8):
 		for j in range(8):
@@ -118,7 +168,7 @@ func _process(delta):
 						grid[i][j].icon = TEX_WHITE_QUEEN
 			else:
 				grid[i][j].icon = TEX_FOG
-	
+
 	var is_pressed = false
 	for i in range(8):
 		for j in range(8):
@@ -127,24 +177,29 @@ func _process(delta):
 					select_tile(i, j)
 				is_pressed = true
 				break
-	
+
 	was_pressed = is_pressed
-	
+
 	for i in range(8):
 		for j in range(8):
 			grid[i][j].set_flat(true)
 			grid[i][j].set_theme(null)
-	
-			
+
 	if selected_r != -1 and selected_c != -1:
 		grid[selected_r][selected_c].set_flat(false)
 		grid[selected_r][selected_c].set_theme(selected_theme)
-		
+
 		for i in range(8):
 			for j in range(8):
 				if is_valid(selected_r, selected_c, i, j):
 					grid[i][j].set_flat(false)
 					grid[i][j].set_theme(move_theme)
+
+	if fools_mate():
+		if global.my_type == global.WHITE:
+			get_tree().change_scene("res://LoseScreen.tscn")
+		else:
+			get_tree().change_scene("res://WinScreen.tscn")
 
 func select_tile(r, c):
 	print(str(r) + str(c))
@@ -157,7 +212,7 @@ func select_tile(r, c):
 			return
 		selected_r = r
 		selected_c = c
-		
+
 	elif selected_r == r and selected_c == c:
 		selected_r = -1
 		selected_c = -1
@@ -177,6 +232,7 @@ func toggle_selection(r, c):
 
 func move_piece(from_r, from_c, to_r, to_c):
 	if is_valid(from_r, from_c, to_r, to_c):
+		global.add_move_to_list(global.gen_move_str(from_r, from_c, to_r, to_c))
 		if global.my_type == global.BLACK:
 			for i in range(8):
 				global.pieceTypes[8][i]=global.NONE
@@ -189,16 +245,15 @@ func move_piece(from_r, from_c, to_r, to_c):
 		global.switch_turn()
 		selected_r = -1
 		selected_c = -1
-	
+
 func is_valid(from_r, from_c, to_r, to_c):
-	#print("valid: from_r = "+str(from_r)+"| from_c = "+str(from_c))
-	#print("     : to_r = "+str(from_r)+"| to_c = "+str(from_c))
-	#print("     : piece = "+str(global.pieceTypes[from_r][from_c]))
 	if from_r == to_r and from_c == to_c:
 		return false
 	if can_move_piece(to_r, to_c) and global.pieceTypes[to_r][to_c] != global.NONE:
 		return false
-		
+	if global.pieceTypes[from_r][from_c] == global.NONE:
+		return false
+
 	var diff_r = from_r - to_r
 	var diff_c = from_c - to_c
 	match global.pieceTypes[from_r][from_c]:
@@ -248,7 +303,8 @@ func is_valid(from_r, from_c, to_r, to_c):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
-				return true
+				if !is_blocked(from_r, from_c, to_r, to_c):
+					return true
 		global.WHITE_PAWN:
 			if(to_c == from_c and to_r == from_r-1 and global.pieceTypes[to_r][to_c] == global.NONE):
 				return true
@@ -298,18 +354,18 @@ func is_valid(from_r, from_c, to_r, to_c):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
 	return false
-	
+
 func is_blocked_cardinal(from_r, from_c, to_r, to_c):
-	
+
 	return false
-	
+
 func is_blocked(from_r, from_c, to_r, to_c):
 	var dr = sign(to_r - from_r)
 	var dc = sign(to_c - from_c)
-	
+
 	var r = from_r + dr
 	var c = from_c + dc
-	
+
 	while r != to_r or c != to_c:
 		print("BLOCK: r = "+str(r)+"| c = "+str(c))
 		if r < 0 or r >= 8 or c < 0 or c >= 8:
@@ -319,10 +375,10 @@ func is_blocked(from_r, from_c, to_r, to_c):
 			return true
 		r += dr
 		c += dc
-		
+
 	if can_move_piece(to_r, to_c):
 		return true
-	
+
 	return false
 
 func in_bounds(r, c):
@@ -336,7 +392,14 @@ func _on_SendChatButton_pressed():
 	global.send_chat_to_server($Text_Input/ChatInputBox.text)
 	$Text_Input/ChatInputBox.text = ""
 
-# If the piece at rc is yours, return false, otherwise, true
+func fools_mate():
+	for i in range(8):
+		for j in range(8):
+			if global.temp_board[i][j] != global.pieceTypes[i][j]:
+				return false
+	return true
+
+# If the piece at rc is yours, return true, otherwise, false
 func can_move_piece(r, c):
 	match global.pieceTypes[r][c]:
 		global.BLACK_ROOK, global.BLACK_KING, global.BLACK_BISHOP, global.BLACK_QUEEN, global.BLACK_PAWN, global.BLACK_KNIGHT:

@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game_screen.gd" type="Script" id=1]
 [ext_resource path="res://gamePieces/Background/background.png" type="Texture" id=2]
-[ext_resource path="res://Button.gd" type="Script" id=3]
-[ext_resource path="res://chess_board.png" type="Texture" id=4]
+[ext_resource path="res://paint_window.png" type="Texture" id=3]
+[ext_resource path="res://Button.gd" type="Script" id=4]
+[ext_resource path="res://start.png" type="Texture" id=5]
+[ext_resource path="res://move_window.png" type="Texture" id=6]
+[ext_resource path="res://toolbar.png" type="Texture" id=7]
+[ext_resource path="res://chess_board.png" type="Texture" id=8]
 
 [sub_resource type="GDScript" id=1]
 
@@ -19,22 +23,22 @@ func _ready():
 
 func _process(delta):
 	pass
-	
+
 func send_message():
 	if(self.text != \"\"):
 		# select all the text
 		self.select_all()
-		
+
 		# selected text is going to be the text we send
 		var message = self.get_selection_text()
-		
+
 		# send a signal to \"Messages\" node to get message we send
 		emit_signal(\"sent\", message)
-		
-		# send 
+
+		# send
 		self.cut()
-	
-	
+
+
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
@@ -42,16 +46,16 @@ func send_message():
 "
 _sections_unfolded = [ "Resource" ]
 
-[node name="Screen" type="Container"]
+[node name="Screen" type="Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1.0
-margin_top = -1.0
-margin_right = 1281.0
-margin_bottom = 799.0
+margin_left = 5.0
+margin_top = -3.0
+margin_right = 1285.0
+margin_bottom = 797.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -63,10 +67,21 @@ _sections_unfolded = [ "Focus", "Material", "Rect", "Theme", "Visibility" ]
 
 [node name="background" type="Sprite" parent="." index="0"]
 
-position = Vector2( 638.945, 398.276 )
+position = Vector2( 395, 126 )
 texture = ExtResource( 2 )
+offset = Vector2( 241.945, 277.276 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Chat_Box" type="Container" parent="." index="1"]
+[node name="paint_window" type="Sprite" parent="." index="1"]
+
+position = Vector2( 1107.02, 429.334 )
+scale = Vector2( 0.34601, 0.408678 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="Chat_Box" type="Container" parent="." index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -84,37 +99,18 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Hint", "Margin", "Material", "Visibility" ]
 
-[node name="Chat_Box_Background" type="ColorRect" parent="Chat_Box" index="0"]
-
-show_behind_parent = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -106.0
-margin_top = -6.0
-margin_right = 180.0
-margin_bottom = 444.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-color = Color( 0.172549, 0.164706, 0.196078, 1 )
-_sections_unfolded = [ "Margin", "Visibility" ]
-
-[node name="BetterChat" type="RichTextLabel" parent="Chat_Box" index="1"]
+[node name="BetterChat" type="RichTextLabel" parent="Chat_Box" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -95.0
-margin_top = 22.0
-margin_right = 175.0
-margin_bottom = 442.0
+margin_left = -61.0
+margin_top = 81.0
+margin_right = 209.0
+margin_bottom = 501.0
 rect_min_size = Vector2( 270, 420 )
+rect_scale = Vector2( 0.9, 0.8 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -134,27 +130,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "Rect" ]
 
-[node name="Chat_Label" type="Label" parent="Chat_Box" index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -1.0
-margin_right = 30.0
-margin_bottom = 14.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Chat"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Text_Input" type="Container" parent="." index="2"]
+[node name="Text_Input" type="Container" parent="." index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -178,9 +154,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 3.0
-margin_right = 210.0
-margin_bottom = 110.0
+margin_left = 46.0
+margin_top = -30.0
+margin_right = 253.0
+margin_bottom = 80.0
+rect_scale = Vector2( 0.85, 0.5 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -205,7 +183,7 @@ caret_blink = false
 caret_blink_speed = 0.65
 caret_moving_by_right_click = true
 script = SubResource( 1 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Rect", "Visibility" ]
 path = null
 
 [node name="SendChatButton" type="Button" parent="Text_Input" index="1"]
@@ -214,10 +192,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 211.0
-margin_top = 2.0
-margin_right = 289.0
-margin_bottom = 109.0
+margin_left = 222.0
+margin_top = -33.0
+margin_right = 300.0
+margin_bottom = 74.0
+rect_scale = Vector2( 0.9, 0.5 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -232,11 +211,13 @@ group = null
 text = "Send"
 flat = false
 align = 1
-script = ExtResource( 3 )
+script = ExtResource( 4 )
+_sections_unfolded = [ "Rect" ]
 path = null
 
-[node name="Move_Log" type="Container" parent="." index="3"]
+[node name="start" type="Sprite" parent="." index="4"]
 
+<<<<<<< HEAD
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -247,90 +228,75 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+=======
+position = Vector2( 93.4892, 618.732 )
+scale = Vector2( 0.261182, 0.294404 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+>>>>>>> 83050f664bbd89fc21ce0670ead54912fe143fa3
 
-[node name="Log_Background" type="ColorRect" parent="Move_Log" index="0"]
+[node name="move_window" type="Sprite" parent="." index="5"]
 
-show_behind_parent = true
+position = Vector2( 206.084, 430.023 )
+scale = Vector2( 0.344678, 0.404467 )
+texture = ExtResource( 6 )
+
+[node name="Move_Log" type="Container" parent="." index="6"]
+
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 27.0
-margin_top = 120.0
-margin_right = 337.0
-margin_bottom = 677.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-color = Color( 0.172549, 0.164706, 0.196078, 1 )
-_sections_unfolded = [ "Margin", "Visibility" ]
 
-[node name="Log_Box" type="ScrollContainer" parent="Move_Log" index="1"]
+[node name="BetterLog" type="RichTextLabel" parent="Move_Log" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 27.0
-margin_top = 140.0
-margin_right = 336.0
-margin_bottom = 677.0
+margin_left = 104.0
+margin_top = 206.0
+margin_right = 380.0
+margin_bottom = 686.0
+rect_min_size = Vector2( 270, 420 )
+rect_scale = Vector2( 0.896, 0.8 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-scroll_horizontal_enabled = true
-scroll_horizontal = 0
-scroll_vertical_enabled = true
-scroll_vertical = 0
-_sections_unfolded = [ "Margin" ]
-
-[node name="Log" type="VBoxContainer" parent="Move_Log/Log_Box" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 0
-
-[node name="Log_Label" type="Label" parent="Move_Log" index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 141.0
-margin_top = 125.0
-margin_right = 202.0
-margin_bottom = 142.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Move Log"
+bbcode_enabled = false
+bbcode_text = ""
+visible_characters = -1
 percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+meta_underlined = true
+tab_size = 4
+text = ""
+scroll_active = true
+scroll_following = true
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Rect" ]
 
-[node name="Chess_Board" type="Sprite" parent="." index="4"]
+[node name="toolbar" type="Sprite" parent="." index="7"]
+
+position = Vector2( 637, 792.611 )
+scale = Vector2( 0.444753, 0.41216 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Chess_Board" type="Sprite" parent="." index="8"]
 
 position = Vector2( 657.314, 429.219 )
 scale = Vector2( 0.546875, 0.546875 )
 z_index = 98
-texture = ExtResource( 4 )
+texture = ExtResource( 8 )
 
 [node name="r0c0" type="Button" parent="Chess_Board" index="0" groups=[
 "ChessGrid",
@@ -637,9 +603,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -127.0
+margin_left = -128.0
 margin_top = -380.0
-margin_right = 1.0
 margin_bottom = -252.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -2062,8 +2027,14 @@ use_threads = false
 body_size_limit = -1
 max_redirects = 8
 
+[node name="player" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = null
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [connection signal="pressed" from="Text_Input/SendChatButton" to="." method="_on_SendChatButton_pressed"]
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
-
-

@@ -4,6 +4,9 @@ onready var startButton = get_node("startButton")
 onready var behindStart = get_node("back")
 onready var playerList = get_node("playerList")
 onready var invitePlayerName = get_node("invitePlayerName")
+onready var music = get_node("Wait_Music")
+var playing = false
+var song_position = 0
 
 var is_server = false
 
@@ -11,6 +14,13 @@ func _ready():
 	get_tree().set_auto_accept_quit(false)
 
 	startButton.icon = load("res://Start_button.png")
+
+	# Need some nice music for the lobby
+	var song = load("lobby_music.ogg")
+	music.set_stream(song)
+	music.play()
+	playing = true
+
 	# Only host can start game
 	if global.my_role != global.PlayerRole.SERVER:
 		behindStart.hide()
@@ -41,9 +51,19 @@ func _process(delta):
 		get_tree().change_scene("res://LobbySearch.tscn")
 
 
-    is_server = global.my_role == global.PlayerRole.SERVER
+	is_server = global.my_role == global.PlayerRole.SERVER
 
-    playerList.text = ""
+	playerList.text = ""
+
+	if (Input.is_action_pressed("ui_select")):
+		if (playing):
+			playing = false
+			song_position = music.get_playback_position()
+			music.stop()
+		else:
+			playing = true
+			music.play(song_position)
+	
 	for id in global.player_info:
 		var player = global.player_info[id]
 		var role = ""
@@ -56,6 +76,10 @@ func _process(delta):
 
 		playerList.add_text(player.username + " (" + role + ")\n")
 
+	$Chat_Box/BetterChat.text = ""
+	for msg in global.chat_messages:
+		$Chat_Box/BetterChat.add_text(msg + "\n")
+
 func _on_startButton_pressed():
 	global.host_start_game()
 
@@ -64,3 +88,8 @@ func _on_invitePlayerButton_pressed():
 	print(QUERY)
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
+
+
+func _on_SendChatButton_pressed():
+	global.send_chat_to_server($Text_Input/ChatInputBox.text)
+	$Text_Input/ChatInputBox.text = ""

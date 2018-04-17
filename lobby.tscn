@@ -1,13 +1,59 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://lobby.gd" type="Script" id=1]
-[ext_resource path="res://mountain_grid_lobby screen.jpg" type="Texture" id=2]
-[ext_resource path="res://start_back.png" type="Texture" id=3]
-[ext_resource path="res://Start_button.png" type="Texture" id=4]
-[ext_resource path="res://toolbar.png" type="Texture" id=5]
-[ext_resource path="res://start.png" type="Texture" id=6]
+[ext_resource path="res://vpbk_6.jpg" type="Texture" id=2]
+[ext_resource path="res://vpbk_4.jpg" type="Texture" id=3]
+[ext_resource path="res://vpbk_3.gd" type="Script" id=4]
+[ext_resource path="res://vpbk_3.jpg" type="Texture" id=5]
+[ext_resource path="res://vpbk_2.png" type="Texture" id=6]
+[ext_resource path="res://lobby_pic.png" type="Texture" id=7]
+[ext_resource path="res://start_back.png" type="Texture" id=8]
+[ext_resource path="res://paint_window.png" type="Texture" id=9]
+[ext_resource path="res://Start_button.png" type="Texture" id=10]
+[ext_resource path="res://invite_button.png" type="Texture" id=11]
+[ext_resource path="res://toolbar.png" type="Texture" id=12]
+[ext_resource path="res://start.png" type="Texture" id=13]
+[ext_resource path="res://alt_lobby_music.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Button.gd" type="Script" id=15]
 
-[node name="Container" type="Container"]
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends TextEdit
+export(NodePath) var path
+
+signal sent(message)
+
+func _ready():
+	pass
+	#var send_button = get_node(\"../Button\")
+	#send_button.connect(\"send\", self, \"send_message\")
+
+func _process(delta):
+	pass
+
+func send_message():
+	if(self.text != \"\"):
+		# select all the text
+		self.select_all()
+
+		# selected text is going to be the text we send
+		var message = self.get_selection_text()
+
+		# send a signal to \"Messages\" node to get message we send
+		emit_signal(\"sent\", message)
+
+		# send
+		self.cut()
+
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
+
+[node name="Container" type="Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -22,32 +68,68 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
+_sections_unfolded = [ "Rect" ]
 
 [node name="TextureRect" type="Sprite" parent="." index="0"]
 
-position = Vector2( 639.41, 400.025 )
-scale = Vector2( 1.24597, 1.48198 )
+position = Vector2( 640, 400.025 )
+scale = Vector2( 1, 1.01 )
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Region", "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="back" type="Sprite" parent="." index="1"]
+[node name="vpbk_4" type="Sprite" parent="." index="1"]
 
-position = Vector2( 660.51, 415.125 )
-scale = Vector2( 0.55389, 0.502907 )
+position = Vector2( 600, 480 )
+scale = Vector2( 0.218677, 0.19125 )
 texture = ExtResource( 3 )
+script = ExtResource( 4 )
 
-[node name="startButton" type="Button" parent="." index="2"]
+[node name="vpbk_3" type="Sprite" parent="." index="2"]
+
+position = Vector2( 380, 368.421 )
+scale = Vector2( 0.561476, 0.525 )
+texture = ExtResource( 5 )
+script = ExtResource( 4 )
+
+[node name="vpbk_2" type="Sprite" parent="." index="3"]
+
+position = Vector2( 900, 400 )
+scale = Vector2( 0.561476, 0.525 )
+texture = ExtResource( 6 )
+script = ExtResource( 4 )
+
+[node name="lobby_pic" type="Sprite" parent="." index="4"]
+
+position = Vector2( 530, 410.526 )
+scale = Vector2( 0.532959, 0.554245 )
+texture = ExtResource( 7 )
+
+[node name="back" type="Sprite" parent="." index="5"]
+
+position = Vector2( 350, 536.842 )
+scale = Vector2( 0.55389, 0.502907 )
+texture = ExtResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="." index="6"]
+
+position = Vector2( 1090, 413 )
+scale = Vector2( 0.352823, 0.338617 )
+texture = ExtResource( 9 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="startButton" type="Button" parent="." index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 520.0
-margin_top = 380.0
-margin_right = 789.0
-margin_bottom = 466.0
+margin_left = 230.0
+margin_top = 495.0
+margin_right = 499.0
+margin_bottom = 581.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -59,21 +141,23 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-icon = ExtResource( 4 )
+icon = ExtResource( 10 )
 flat = false
 align = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="playerList" type="RichTextLabel" parent="." index="3"]
+[node name="playerList" type="RichTextLabel" parent="." index="8"]
 
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 190.0
-margin_top = 220.0
-margin_right = 410.0
-margin_bottom = 500.0
+margin_left = 540.0
+margin_top = 284.0
+margin_right = 850.0
+margin_bottom = 564.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -91,38 +175,18 @@ scroll_active = true
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
+_sections_unfolded = [ "Visibility" ]
 
-[node name="Label" type="Label" parent="." index="4"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 260.0
-margin_top = 202.0
-margin_right = 326.0
-margin_bottom = 216.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Player List"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="invitePlayerName" type="LineEdit" parent="." index="5"]
+[node name="invitePlayerName" type="LineEdit" parent="." index="9"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1081.0
-margin_top = 286.0
-margin_right = 1244.0
-margin_bottom = 310.0
+margin_left = 190.0
+margin_top = 295.0
+margin_right = 480.0
+margin_bottom = 319.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -137,16 +201,17 @@ caret_blink = false
 caret_blink_speed = 0.65
 caret_position = 0
 
-[node name="invitePlayerButton" type="Button" parent="." index="6"]
+[node name="invitePlayerButton" type="Button" parent="." index="10"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1110.0
-margin_top = 234.0
-margin_right = 1202.0
-margin_bottom = 254.0
+margin_left = 270.0
+margin_top = 326.0
+margin_right = 756.0
+margin_bottom = 482.0
+rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -158,35 +223,173 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "Invite Player"
+icon = ExtResource( 11 )
 flat = false
 align = 1
+_sections_unfolded = [ "Rect" ]
 
-[node name="HTTPRequest" type="HTTPRequest" parent="." index="7"]
+[node name="HTTPRequest" type="HTTPRequest" parent="." index="11"]
 
 download_file = ""
 use_threads = false
 body_size_limit = -1
 max_redirects = 8
 
-[node name="toolbar" type="Sprite" parent="." index="8"]
+[node name="toolbar" type="Sprite" parent="." index="12"]
 
 position = Vector2( 640, 788 )
 scale = Vector2( 0.44475, 0.4121 )
-texture = ExtResource( 5 )
+texture = ExtResource( 12 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="start" type="Sprite" parent="." index="9"]
+[node name="start" type="Sprite" parent="." index="13"]
 
 position = Vector2( 96.9711, 635.732 )
 scale = Vector2( 0.260742, 0.253921 )
-texture = ExtResource( 6 )
+texture = ExtResource( 13 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="Wait_Music" type="AudioStreamPlayer" parent="." index="14"]
+
+stream = ExtResource( 14 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Chat_Box" type="Container" parent="." index="15"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1095.0
+margin_top = 123.0
+margin_right = 1069.0
+margin_bottom = 123.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Hint", "Margin", "Material", "Visibility" ]
+
+[node name="BetterChat" type="RichTextLabel" parent="Chat_Box" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -105.0
+margin_top = 107.0
+margin_right = 165.0
+margin_bottom = 527.0
+rect_min_size = Vector2( 270, 420 )
+rect_scale = Vector2( 0.9, 0.63 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+bbcode_enabled = false
+bbcode_text = ""
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = ""
+scroll_active = true
+scroll_following = true
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Rect" ]
+
+[node name="Text_Input" type="Container" parent="." index="16"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 985.0
+margin_top = 570.0
+margin_right = 1240.0
+margin_bottom = 680.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="ChatInputBox" type="TextEdit" parent="Text_Input" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 5.0
+margin_top = -80.0
+margin_right = 155.0
+margin_bottom = 25.0
+rect_scale = Vector2( 1, 0.55 )
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+text = ""
+readonly = false
+highlight_current_line = false
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+override_selected_font_color = false
+context_menu_enabled = true
+smooth_scrolling = false
+v_scroll_speed = 80.0
+hiding_enabled = 0
+wrap_lines = true
+caret_block_mode = false
+caret_blink = false
+caret_blink_speed = 0.65
+caret_moving_by_right_click = true
+script = SubResource( 1 )
+_sections_unfolded = [ "Hint", "Rect", "Visibility" ]
+path = null
+
+[node name="SendChatButton" type="Button" parent="Text_Input" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 165.0
+margin_top = -80.0
+margin_right = 243.0
+margin_bottom = 27.0
+rect_scale = Vector2( 1.1, 0.55 )
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Send"
+flat = false
+align = 1
+script = ExtResource( 15 )
+_sections_unfolded = [ "Rect" ]
+path = null
 
 [connection signal="pressed" from="startButton" to="." method="_on_startButton_pressed"]
 
 [connection signal="pressed" from="invitePlayerButton" to="." method="_on_invitePlayerButton_pressed"]
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
-
-
+[connection signal="pressed" from="Text_Input/SendChatButton" to="." method="_on_SendChatButton_pressed"]

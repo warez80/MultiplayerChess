@@ -15,7 +15,7 @@
 [ext_resource path="res://join.png" type="Texture" id=13]
 [ext_resource path="res://cancel.png" type="Texture" id=14]
 
-[node name="Container" type="Container" index="0"]
+[node name="Container" type="Container"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -28,7 +28,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
-_sections_unfolded = [ "Theme" ]
+_sections_unfolded = [ "Focus", "Hint", "Rect", "Theme" ]
 
 [node name="background" type="TextureRect" parent="." index="0"]
 
@@ -59,7 +59,7 @@ script = ExtResource( 5 )
 
 [node name="vpbk_2" type="Sprite" parent="." index="2"]
 
-position = Vector2( 1123.3, 629.812 )
+position = Vector2( 1123.74, 629.812 )
 scale = Vector2( 0.495902, 0.4375 )
 texture = ExtResource( 6 )
 script = ExtResource( 5 )
@@ -88,8 +88,8 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="server_browser" type="Sprite" parent="." index="6"]
 
-visible = false
-position = Vector2( 626.81, 368.776 )
+position = Vector2( 658.858, 343.121 )
+scale = Vector2( 0.493942, 0.380024 )
 texture = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
 
@@ -99,10 +99,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 711.0
-margin_top = 229.0
-margin_right = 961.0
-margin_bottom = 489.0
+margin_left = 687.0
+margin_top = 251.0
+margin_right = 937.0
+margin_bottom = 511.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -151,10 +151,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 278.0
-margin_top = 391.0
-margin_right = 578.0
-margin_bottom = 416.0
+margin_left = 282.0
+margin_top = 360.0
+margin_right = 582.0
+margin_bottom = 385.0
 rect_min_size = Vector2( 300, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
@@ -177,9 +177,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 281.0
-margin_top = 251.0
+margin_top = 250.0
 margin_right = 581.0
-margin_bottom = 275.0
+margin_bottom = 274.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
@@ -201,10 +201,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 280.0
-margin_top = 470.0
-margin_right = 580.0
-margin_bottom = 494.0
+margin_left = 282.0
+margin_top = 433.0
+margin_right = 582.0
+margin_bottom = 457.0
 rect_min_size = Vector2( 300, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
@@ -227,10 +227,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 289.0
-margin_top = 290.0
-margin_right = 377.0
-margin_bottom = 310.0
+margin_left = 284.0
+margin_top = 283.0
+margin_right = 489.0
+margin_bottom = 375.0
 rect_scale = Vector2( 0.3, 0.3 )
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
@@ -245,7 +245,7 @@ group = null
 text = "Search"
 flat = false
 align = 1
-_sections_unfolded = [ "Grow Direction", "Rect" ]
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect" ]
 
 [node name="Button2" type="Button" parent="." index="14"]
 
@@ -253,10 +253,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 282.0
-margin_top = 500.0
-margin_right = 377.0
-margin_bottom = 522.0
+margin_left = 284.0
+margin_top = 469.0
+margin_right = 379.0
+margin_bottom = 526.0
 rect_scale = Vector2( 0.3, 0.3 )
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
