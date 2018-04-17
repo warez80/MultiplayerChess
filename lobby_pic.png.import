@@ -7,10 +7,10 @@ path="res://.import/lobby_pic.png-946685da946b374cc57a0c2f9ea0c3b3.stex"
 [deps]
 
 source_file="res://lobby_pic.png"
-source_md5="ba0d57464aea04240f6f566f47fc52d5"
+source_md5="f2d25cb27f32b2d0705c521fd77ec065"
 
 dest_files=[ "res://.import/lobby_pic.png-946685da946b374cc57a0c2f9ea0c3b3.stex" ]
-dest_md5="63dd74d54e5a4b7121451fbb00e3f7e4"
+dest_md5="860b1b23c1a0bd47fa11d839ddcc83a0"
 
 [params]
 

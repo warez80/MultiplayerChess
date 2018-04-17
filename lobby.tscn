@@ -53,7 +53,7 @@ func send_message():
 "
 _sections_unfolded = [ "Resource" ]
 
-[node name="Container" type="Container" index="0"]
+[node name="Container" type="Container"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -103,14 +103,15 @@ script = ExtResource( 4 )
 
 [node name="lobby_pic" type="Sprite" parent="." index="4"]
 
-position = Vector2( 530, 410.526 )
-scale = Vector2( 0.532959, 0.554245 )
+position = Vector2( 510, 410 )
+scale = Vector2( 0.326405, 0.379646 )
 texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="back" type="Sprite" parent="." index="5"]
 
-position = Vector2( 350, 536.842 )
-scale = Vector2( 0.55389, 0.502907 )
+position = Vector2( 350, 530 )
+scale = Vector2( 0.538357, 0.484012 )
 texture = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="." index="6"]
@@ -126,10 +127,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 230.0
-margin_top = 495.0
-margin_right = 499.0
-margin_bottom = 581.0
+margin_left = 220.0
+margin_top = 490.0
+margin_right = 489.0
+margin_bottom = 576.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -137,7 +138,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-toggle_mode = false
+toggle_mode = true
+pressed = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
@@ -154,10 +156,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 540.0
-margin_top = 284.0
-margin_right = 850.0
-margin_bottom = 564.0
+margin_left = 530.0
+margin_top = 280.0
+margin_right = 820.0
+margin_bottom = 560.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -183,10 +185,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 190.0
-margin_top = 295.0
-margin_right = 480.0
-margin_bottom = 319.0
+margin_left = 200.0
+margin_top = 290.0
+margin_right = 490.0
+margin_bottom = 314.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -207,10 +209,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 270.0
-margin_top = 326.0
-margin_right = 756.0
-margin_bottom = 482.0
+margin_left = 280.0
+margin_top = 320.0
+margin_right = 766.0
+margin_bottom = 476.0
 rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -219,7 +221,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-toggle_mode = false
+toggle_mode = true
+pressed = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
@@ -386,6 +389,29 @@ align = 1
 script = ExtResource( 15 )
 _sections_unfolded = [ "Rect" ]
 path = null
+
+[node name="game_mode" type="CheckBox" parent="." index="17"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 351.0
+margin_top = 407.0
+margin_right = 375.0
+margin_bottom = 431.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 0
 
 [connection signal="pressed" from="startButton" to="." method="_on_startButton_pressed"]
 
