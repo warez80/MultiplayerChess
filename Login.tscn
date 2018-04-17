@@ -51,7 +51,7 @@ use_filter = false
 font_data = SubResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 script = ExtResource( 1 )
 
@@ -162,10 +162,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 378.0
-margin_top = 384.0
-margin_right = 402.0
-margin_bottom = 408.0
+margin_left = 363.0
+margin_top = 383.0
+margin_right = 387.0
+margin_bottom = 407.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0

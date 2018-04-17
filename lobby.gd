@@ -4,6 +4,7 @@ onready var startButton = get_node("startButton")
 onready var behindStart = get_node("back")
 onready var playerList = get_node("playerList")
 onready var invitePlayerName = get_node("invitePlayerName")
+onready var game_check_box = get_node("game_mode")
 onready var music = get_node("Wait_Music")
 var playing = false
 var song_position = 0
@@ -24,6 +25,11 @@ func _ready():
 		startButton.hide()
 
 func _process(delta):
+	
+	if game_check_box.is_pressed():
+		global.fog_war = true
+	else:
+		global.fog_war = false
 	
 	if (Input.is_action_pressed("ui_cancel")):
 		get_tree().change_scene("res://LobbySearch.tscn")
