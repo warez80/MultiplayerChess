@@ -39,6 +39,8 @@ var elapsed_time = 0
 
 func _ready():
 	
+	
+	
 	# More music stuff
 	var current_song = load(songNames[song_number] + ".ogg")
 	player.set_stream(current_song)
@@ -157,7 +159,6 @@ func _process(delta):
 		for j in range(8):
 			grid[i][j].set_flat(true)
 			grid[i][j].set_theme(null)
-	
 			
 	if selected_r != -1 and selected_c != -1:
 		grid[selected_r][selected_c].set_flat(false)
@@ -168,6 +169,12 @@ func _process(delta):
 				if is_valid(selected_r, selected_c, i, j):
 					grid[i][j].set_flat(false)
 					grid[i][j].set_theme(move_theme)
+					
+	if fools_mate():
+		if global.my_type == global.WHITE:
+			get_tree().change_scene("res://LoseScreen.tscn")
+		else:
+			get_tree().change_scene("res://WinScreen.tscn")
 
 func select_tile(r, c):
 	print(str(r) + str(c))
@@ -358,6 +365,13 @@ func get_right_diag(r, c):
 func _on_SendChatButton_pressed():
 	global.send_chat_to_server($Text_Input/ChatInputBox.text)
 	$Text_Input/ChatInputBox.text = ""
+
+func fools_mate():
+	for i in range(8):
+		for j in range(8):
+			if global.temp_board[i][j] != global.pieceTypes[i][j]:
+				return false
+	return true
 
 # If the piece at rc is yours, return true, otherwise, false
 func can_move_piece(r, c):
