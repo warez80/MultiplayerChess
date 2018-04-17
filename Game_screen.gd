@@ -36,9 +36,9 @@ func _ready():
 	move_theme = preload("res://move_theme.tres")
 	visible_grid = []
 	for x in range(8):
-    	visible_grid.append([])
-	    for y in range(8):
-        	visible_grid[x].append(false)
+		visible_grid.append([])
+		for y in range(8):
+			visible_grid[x].append(false)
 	pass
 
 func _process(delta):
@@ -159,8 +159,35 @@ func move_piece(from_r, from_c, to_r, to_c):
 		if global.my_type == global.WHITE:
 			for i in range(8):
 				global.pieceTypes[9][i]=global.NONE
+				
+		if global.pieceTypes[from_r][from_c]==global.WHITE_ROOK and from_r==7 and from_c==0:
+			global.pieceTypes[10][0]=global.NONE
+		if global.pieceTypes[from_r][from_c]==global.WHITE_ROOK and from_r==7 and from_c==7:
+			global.pieceTypes[10][7]=global.NONE
+		if global.pieceTypes[from_r][from_c]==global.BLACK_ROOK and from_r==0 and from_c==0:
+			global.pieceTypes[11][0]=global.NONE
+		if global.pieceTypes[from_r][from_c]==global.BLACK_ROOK and from_r==0 and from_c==7:
+			global.pieceTypes[11][7]=global.NONE
+		
 		global.pieceTypes[to_r][to_c] = global.pieceTypes[from_r][from_c]
 		global.pieceTypes[from_r][from_c] = global.NONE
+		
+		if global.pieceTypes[to_r][to_c]==global.WHITE_KING and from_c==4 and from_r==7:
+			global.pieceTypes[10][4]=global.NONE
+			if to_c==2:
+				global.pieceTypes[7][0]= global.NONE
+				global.pieceTypes[to_r][to_c+1]=global.WHITE_ROOK
+			elif to_c==6:
+				global.pieceTypes[7][7]= global.NONE
+				global.pieceTypes[to_r][to_c-1]=global.WHITE_ROOK
+		if global.pieceTypes[to_r][to_c]==global.BLACK_KING and from_c==4 and from_r==0:
+			global.pieceTypes[11][4]=global.NONE
+			if to_c==2:
+				global.pieceTypes[0][0]= global.NONE
+				global.pieceTypes[to_r][to_c+1]=global.BLACK_ROOK
+			elif to_c==6:
+				global.pieceTypes[0][7]= global.NONE
+				global.pieceTypes[to_r][to_c-1]=global.BLACK_ROOK
 		global.send_board_update()
 		global.switch_turn()
 		selected_r = -1
@@ -189,24 +216,15 @@ func is_valid(from_r, from_c, to_r, to_c):
 				return true
 		global.BLACK_ROOK:
 			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)) and !is_blocked(from_r, from_c, to_r, to_c):
-				if from_c==0 and from_r==0:
-					global.pieceTypes[11][0]=global.NONE
-				if from_c==7 and from_r==0:
-					global.pieceTypes[11][7]=global.NONE
 				return true
 		global.BLACK_KING:
 			if abs(diff_c) <= 1 and abs(diff_r) <= 1 and !is_blocked(from_r, from_c, to_r, to_c):
-				global.pieceTypes[11][4]=global.NONE
 				return true
 			elif global.pieceTypes[11][4]==global.BLACK_KING and from_r==0 and from_c==4 and global.pieceTypes[11][0]==global.BLACK_ROOK and to_r==0 and to_c==2:
 				if global.pieceTypes[0][1]==global.NONE and global.pieceTypes[0][2]==global.NONE and global.pieceTypes[0][3]==global.NONE:
-					global.pieceTypes[0][0]=global.NONE
-					global.pieceTypes[0][3]=global.WHITE_ROOK
 					return true
-			elif global.pieceTypes[11][4]==global.BLACK_KING and from_r==0 and from_c==4 and global.pieceTypes[11][7]==global.BLACK_KING and to_r==0 and to_c==6:
+			elif global.pieceTypes[11][4]==global.BLACK_KING and from_r==0 and from_c==4 and global.pieceTypes[11][7]==global.BLACK_ROOK and to_r==0 and to_c==6:
 				if global.pieceTypes[0][5]==global.NONE and global.pieceTypes[0][6]==global.NONE:
-					global.pieceTypes[0][7]=global.NONE
-					global.pieceTypes[0][5]=global.WHITE_ROOK
 					return true
 		global.BLACK_KNIGHT:
 			if abs(diff_c) == 1 and abs(diff_r) == 2 and !can_move_piece(to_r, to_c):
@@ -236,24 +254,15 @@ func is_valid(from_r, from_c, to_r, to_c):
 				return true
 		global.WHITE_ROOK:
 			if ((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)) and is_blocked(from_r, from_c, to_r, to_c):
-				if from_c==0 and from_r==7:
-					global.pieceTypes[10][0]=global.NONE
-				if from_c==7 and from_r==7:
-					global.pieceTypes[10][7]=global.NONE
 				return true
 		global.WHITE_KING:
-			if abs(diff_c) <= 1 and abs(diff_r) <= 1 and is_blocked(from_r, from_c, to_r, to_c):
-				global.pieceTypes[10][4]=global.NONE
+			if abs(diff_c) <= 1 and abs(diff_r) <= 1 and !is_blocked(from_r, from_c, to_r, to_c):
 				return true
 			elif global.pieceTypes[10][4]==global.WHITE_KING and from_r==7 and from_c==4 and global.pieceTypes[10][0]==global.WHITE_ROOK and to_r==7 and to_c==2:
 				if global.pieceTypes[7][1]==global.NONE and global.pieceTypes[7][2]==global.NONE and global.pieceTypes[7][3]==global.NONE:
-					global.pieceTypes[7][0]=global.NONE
-					global.pieceTypes[7][3]=global.WHITE_ROOK
 					return true
 			elif global.pieceTypes[10][4]==global.WHITE_KING and from_r==7 and from_c==4 and global.pieceTypes[10][7]==global.WHITE_ROOK and to_r==7 and to_c==6:
 				if global.pieceTypes[7][5]==global.NONE and global.pieceTypes[7][6]==global.NONE:
-					global.pieceTypes[7][7]=global.NONE
-					global.pieceTypes[7][5]=global.WHITE_ROOK
 					return true
 		global.WHITE_KNIGHT:
 			if abs(diff_c) == 1 and abs(diff_r) == 2 and !can_move_piece(to_r, to_c):
@@ -309,6 +318,16 @@ func get_right_diag(r, c):
 func _on_SendChatButton_pressed():
 	global.send_chat_to_server($Text_Input/ChatInputBox.text)
 	$Text_Input/ChatInputBox.text = ""
+
+func isInCheck():
+	var kr=-1;
+	var kc=-1;
+	for i in range(8):
+		for j in range(8):
+			if (global.pieceTypes[i][j]==global.WHITE_KING or global.pieceTypes[i][j]==global.BLACK_KING) and can_move_piece(i,j):
+				kr=i;
+				kc=j;
+	
 
 # If the piece at rc is yours, return false, otherwise, true
 func can_move_piece(r, c):

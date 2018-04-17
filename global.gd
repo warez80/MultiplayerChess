@@ -35,7 +35,7 @@ func init_game_board():
 		pieceTypes.append([NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE])
 	
 	pieceTypes.append([WHITE_ROOK, NONE, NONE, NONE,WHITE_KING, NONE, NONE, WHITE_ROOK])
-	pieceTypes.append([BLACK_ROOK, NONE, NONE, BLACK_KING, NONE , NONE, NONE, BLACK_ROOK])
+	pieceTypes.append([BLACK_ROOK, NONE, NONE,  NONE ,BLACK_KING ,NONE, NONE, BLACK_ROOK])
 	
 	for i in range(8):
 		pieceTypes[1][i] = BLACK_PAWN
