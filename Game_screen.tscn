@@ -42,7 +42,7 @@ func send_message():
 "
 _sections_unfolded = [ "Resource" ]
 
-[node name="Screen" type="Container" index="0"]
+[node name="Screen" type="Container"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -266,35 +266,40 @@ size_flags_vertical = 1
 color = Color( 0.172549, 0.164706, 0.196078, 1 )
 _sections_unfolded = [ "Margin", "Visibility" ]
 
-[node name="BetterLog" type="RichTextLabel" parent="Move_Log" index="1"]
+[node name="Log_Box" type="ScrollContainer" parent="Move_Log" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 31.0
-margin_top = 141.0
-margin_right = 333.0
-margin_bottom = 671.0
-rect_min_size = Vector2( 270, 420 )
+margin_left = 27.0
+margin_top = 140.0
+margin_right = 336.0
+margin_bottom = 677.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-bbcode_enabled = false
-bbcode_text = ""
-visible_characters = -1
-percent_visible = 1.0
-meta_underlined = true
-tab_size = 4
-text = ""
-scroll_active = true
-scroll_following = true
-selection_enabled = false
-override_selected_font_color = false
-_sections_unfolded = [ "Rect" ]
+scroll_horizontal_enabled = true
+scroll_horizontal = 0
+scroll_vertical_enabled = true
+scroll_vertical = 0
+_sections_unfolded = [ "Margin" ]
+
+[node name="Log" type="VBoxContainer" parent="Move_Log/Log_Box" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
 
 [node name="Log_Label" type="Label" parent="Move_Log" index="2"]
 

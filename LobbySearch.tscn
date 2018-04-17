@@ -12,12 +12,13 @@
 [ext_resource path="res://server_browser.png" type="Texture" id=10]
 [ext_resource path="res://win_95.tres" type="Theme" id=11]
 
-[node name="Container" type="Container"]
+[node name="Container" type="Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
+rect_scale = Vector2( 1, 0.95 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -25,7 +26,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
-_sections_unfolded = [ "Theme" ]
+_sections_unfolded = [ "Focus", "Hint", "Rect", "Theme" ]
 
 [node name="background" type="TextureRect" parent="." index="0"]
 
@@ -85,7 +86,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="server_browser" type="Sprite" parent="." index="6"]
 
-position = Vector2( 658.858, 343.936 )
+position = Vector2( 658.858, 343.121 )
 scale = Vector2( 0.493942, 0.380024 )
 texture = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
@@ -96,9 +97,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 688.0
+margin_left = 687.0
 margin_top = 251.0
-margin_right = 938.0
+margin_right = 937.0
 margin_bottom = 511.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
@@ -242,7 +243,7 @@ group = null
 text = "Search"
 flat = false
 align = 1
-_sections_unfolded = [ "Grow Direction", "Rect" ]
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect" ]
 
 [node name="Button2" type="Button" parent="." index="14"]
 

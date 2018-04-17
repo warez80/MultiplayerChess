@@ -189,7 +189,7 @@ func _update_Server_Browser(json):
 		wrapper.add_child(buttonWrapper)
 		
 		var join = Button.new()
-		join.icon = load("res://join.png")
+		join.icon = load("res://join_new.png")
 		join.set_scale(Vector2(0.1, 0.1))
 		buttonWrapper.add_child(join)
 		
