@@ -14,7 +14,7 @@
 [ext_resource path="res://start.png" type="Texture" id=12]
 [ext_resource path="res://alt_lobby_music.ogg" type="AudioStream" id=13]
 
-[node name="Container" type="Container"]
+[node name="Container" type="Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -22,12 +22,14 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1280.0
 margin_bottom = 801.0
+rect_scale = Vector2( 1, 0.95 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
+_sections_unfolded = [ "Rect" ]
 
 [node name="TextureRect" type="Sprite" parent="." index="0"]
 
@@ -99,14 +101,16 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="playerList" type="RichTextLabel" parent="." index="7"]
 
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 620.0
-margin_top = 270.0
-margin_right = 930.0
-margin_bottom = 550.0
+margin_left = 619.0
+margin_top = 269.0
+margin_right = 929.0
+margin_bottom = 549.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -124,6 +128,7 @@ scroll_active = true
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
+_sections_unfolded = [ "Visibility" ]
 
 [node name="invitePlayerName" type="LineEdit" parent="." index="8"]
 

@@ -103,12 +103,6 @@ func _process(delta):
 	# if ESC is pressed, quit the game
 	if(Input.is_action_pressed("ui_cancel")):
 		get_tree().quit()
-	# if ENTER is pressed, start the glitting
-	elif(grow == false and Input.is_action_pressed("ui_accept")):
-		#run the video to lobbysearch anim
-		#then change scene
-		shrink = true
-		
 		
 func _exit_animation():
 	serverBrowser.hide()
@@ -189,7 +183,7 @@ func _update_Server_Browser(json):
 		wrapper.add_child(buttonWrapper)
 		
 		var join = Button.new()
-		join.icon = load("res://join.png")
+		join.icon = load("res://join_new.png")
 		join.set_scale(Vector2(0.1, 0.1))
 		buttonWrapper.add_child(join)
 		

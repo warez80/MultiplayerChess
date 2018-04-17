@@ -33,7 +33,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 1 )
-stretch_mode = 0
+stretch_mode = 3
 script = ExtResource( 2 )
 
 

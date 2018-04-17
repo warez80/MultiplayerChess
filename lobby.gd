@@ -5,7 +5,8 @@ onready var behindStart = get_node("back")
 onready var playerList = get_node("playerList")
 onready var invitePlayerName = get_node("invitePlayerName")
 onready var music = get_node("Wait_Music")
-
+var playing = false
+var song_position = 0
 
 func _ready():
 	
@@ -15,6 +16,7 @@ func _ready():
 	var song = load("lobby_music.ogg")
 	music.set_stream(song)
 	music.play()
+	playing = true
 	
 	# Only host can start game
 	if global.my_role != global.PlayerRole.SERVER:
@@ -25,6 +27,15 @@ func _process(delta):
 	
 	if (Input.is_action_pressed("ui_cancel")):
 		get_tree().change_scene("res://LobbySearch.tscn")
+	
+	if (Input.is_action_pressed("ui_select")):
+		if (playing):
+			playing = false
+			song_position = music.get_playback_position()
+			music.stop()
+		else:
+			playing = true
+			music.play(song_position)
 	
 	playerList.text = ""
 	for id in global.player_info:
