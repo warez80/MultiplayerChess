@@ -49,7 +49,11 @@ func _process(delta):
 			role = "Spectator"
 			
 		playerList.add_text(player.username + " (" + role + ")\n")
-
+		
+	$Chat_Box/BetterChat.text = ""
+	for msg in global.chat_messages:
+		$Chat_Box/BetterChat.add_text(msg + "\n")
+		
 func _on_startButton_pressed():
 	global.host_start_game()
 
@@ -58,3 +62,8 @@ func _on_invitePlayerButton_pressed():
 	print(QUERY)
 	var HEADERS = ["Content-Type: application/x-www-form-urlencoded", "Content-Length: " + str(QUERY.length())]
 	$HTTPRequest.request("http://www.chrisnastovski.com/COP4331/api.php", HEADERS, true, HTTPClient.METHOD_POST, QUERY)
+
+
+func _on_SendChatButton_pressed():
+	global.send_chat_to_server($Text_Input/ChatInputBox.text)
+	$Text_Input/ChatInputBox.text = ""

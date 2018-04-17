@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://lobby.gd" type="Script" id=1]
 [ext_resource path="res://vpbk_6.jpg" type="Texture" id=2]
@@ -13,6 +13,44 @@
 [ext_resource path="res://toolbar.png" type="Texture" id=11]
 [ext_resource path="res://start.png" type="Texture" id=12]
 [ext_resource path="res://alt_lobby_music.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Button.gd" type="Script" id=14]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends TextEdit
+export(NodePath) var path
+
+signal sent(message)
+
+func _ready():
+	pass
+	#var send_button = get_node(\"../Button\")
+	#send_button.connect(\"send\", self, \"send_message\")
+
+func _process(delta):
+	pass
+	
+func send_message():
+	if(self.text != \"\"):
+		# select all the text
+		self.select_all()
+		
+		# selected text is going to be the text we send
+		var message = self.get_selection_text()
+		
+		# send a signal to \"Messages\" node to get message we send
+		emit_signal(\"sent\", message)
+		
+		# send 
+		self.cut()
+	
+	
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
 
 [node name="Container" type="Container" index="0"]
 
@@ -24,6 +62,7 @@ margin_right = 1280.0
 margin_bottom = 801.0
 rect_scale = Vector2( 1, 0.95 )
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -85,6 +124,7 @@ margin_top = 450.0
 margin_right = 559.0
 margin_bottom = 536.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -141,6 +181,7 @@ margin_top = 290.0
 margin_right = 570.0
 margin_bottom = 314.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 1
@@ -165,6 +206,7 @@ margin_right = 836.0
 margin_bottom = 476.0
 rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -208,8 +250,179 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
+[node name="Chat_Box" type="Container" parent="." index="14"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1095.0
+margin_top = 123.0
+margin_right = 1069.0
+margin_bottom = 123.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Hint", "Margin", "Material", "Visibility" ]
+
+[node name="Chat_Box_Background" type="ColorRect" parent="Chat_Box" index="0"]
+
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -106.0
+margin_top = -6.0
+margin_right = 180.0
+margin_bottom = 444.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.172549, 0.164706, 0.196078, 1 )
+_sections_unfolded = [ "Margin", "Visibility" ]
+
+[node name="BetterChat" type="RichTextLabel" parent="Chat_Box" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -95.0
+margin_top = 22.0
+margin_right = 175.0
+margin_bottom = 442.0
+rect_min_size = Vector2( 270, 420 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+bbcode_enabled = false
+bbcode_text = ""
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = ""
+scroll_active = true
+scroll_following = true
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Rect" ]
+
+[node name="Chat_Label" type="Label" parent="Chat_Box" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -1.0
+margin_right = 30.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Chat"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Text_Input" type="Container" parent="." index="15"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 985.0
+margin_top = 570.0
+margin_right = 1240.0
+margin_bottom = 680.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="ChatInputBox" type="TextEdit" parent="Text_Input" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 3.0
+margin_right = 210.0
+margin_bottom = 110.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+text = ""
+readonly = false
+highlight_current_line = false
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+override_selected_font_color = false
+context_menu_enabled = true
+smooth_scrolling = false
+v_scroll_speed = 80.0
+hiding_enabled = 0
+wrap_lines = true
+caret_block_mode = false
+caret_blink = false
+caret_blink_speed = 0.65
+caret_moving_by_right_click = true
+script = SubResource( 1 )
+_sections_unfolded = [ "Visibility" ]
+path = null
+
+[node name="SendChatButton" type="Button" parent="Text_Input" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 211.0
+margin_top = 2.0
+margin_right = 289.0
+margin_bottom = 109.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Send"
+flat = false
+align = 1
+script = ExtResource( 14 )
+path = null
+
 [connection signal="pressed" from="startButton" to="." method="_on_startButton_pressed"]
 
 [connection signal="pressed" from="invitePlayerButton" to="." method="_on_invitePlayerButton_pressed"]
+
+[connection signal="pressed" from="Text_Input/SendChatButton" to="." method="_on_SendChatButton_pressed"]
 
 
