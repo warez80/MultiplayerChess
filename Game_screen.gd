@@ -278,7 +278,8 @@ func is_valid(from_r, from_c, to_r, to_c):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
-				return true
+				if !is_blocked(from_r, from_c, to_r, to_c):
+					return true
 		global.WHITE_PAWN:
 			if(to_c == from_c and to_r == from_r-1 and global.pieceTypes[to_r][to_c] == global.NONE):
 				return true
