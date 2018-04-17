@@ -21,11 +21,12 @@ var my_username = ""
 var my_role = null
 var my_type = NONE
 var my_turn = false
-var my_local_ip = IP.get_local_addresses()[4]
+var my_local_ip = "127.0.0.1" # IP.get_local_addresses()[4]
 
 var client_init = false
 
 var chat_messages = []
+var move_messages = []
 
 var player_info = {}
 
@@ -71,6 +72,7 @@ func _client_disconnected(id):
 
 remote func register_player(id, username):
 	rpc_id(id, "receive_board_update", pieceTypes)
+	rpc_id(id, "receive_moves_update", move_messages)
 	broadcast_message(username + " has joined the chat.")
 
 	if client_init:
@@ -93,6 +95,8 @@ func setup_game(ip):
 	network_peer = NetworkedMultiplayerENet.new()
 	network_peer.create_server(GAME_PORT, MAX_PLAYERS)
 	client_init = false
+	chat_messages = []
+	move_messages = []
 	# TODO: contact chris's server with `ip`
 	#get_tree().change_scene("res://Game_screen.tscn")
 	player_info[0] = {"id": 0, "role": SERVER, "username": my_username}
@@ -137,6 +141,20 @@ remote func send_board_update_to_all_clients():
 	for id in player_info:
 		rpc_id(id, "receive_board_update", pieceTypes)
 
+remote func receive_moves_update(moves):
+	move_messages = moves
+
+func send_moves_update():
+	if my_role == SERVER:
+		send_moves_update_to_all_clients()
+	elif my_role == CLIENT:
+		rpc("receive_moves_update", move_messages)
+		rpc("send_moves_update_to_all_clients")
+
+remote func send_moves_update_to_all_clients():
+	for id in player_info:
+		rpc_id(id, "receive_moves_update", move_messages)
+
 remote func set_role(role):
 	my_role = role
 	if role == CLIENT:
@@ -171,6 +189,7 @@ func connect(ip):
 	network_peer = NetworkedMultiplayerENet.new()
 	network_peer.create_client(ip, GAME_PORT)
 	chat_messages = []
+	move_messages = []
 	get_tree().change_scene("res://lobby.tscn")
 	get_tree().set_network_peer(network_peer)
 	
@@ -189,7 +208,11 @@ remote func host_started_game():
 	
 # add string to move list
 func add_move_to_list(move_str):
-	pass
+	if fog_war:
+		move_messages.append("MOVE HIDDEN DUE TO FOG")
+	else:
+		move_messages.append(move_str)
+	send_moves_update()
 
 func gen_move_str(from_r, from_c, to_r, to_c):
 	var piece = piece_strings[pieceTypes[from_r][from_c]]

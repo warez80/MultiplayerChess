@@ -88,6 +88,11 @@ func _process(delta):
 	$Chat_Box/BetterChat.text = ""
 	for msg in global.chat_messages:
 		$Chat_Box/BetterChat.add_text(msg + "\n")
+	
+	# Update moves
+	$Move_Log/BetterLog.text = ""
+	for msg in global.move_messages:
+		$Move_Log/BetterLog.add_text(msg + "\n")
 		
 	# Update visibility
 	if global.fog_war:
@@ -195,7 +200,7 @@ func toggle_selection(r, c):
 
 func move_piece(from_r, from_c, to_r, to_c):
 	if is_valid(from_r, from_c, to_r, to_c):
-		global.add_move_to_list(from_r, from_c, to_r, to_c)
+		global.add_move_to_list(global.gen_move_str(from_r, from_c, to_r, to_c))
 		if global.my_type == global.BLACK:
 			for i in range(8):
 				global.pieceTypes[8][i]=global.NONE
@@ -204,7 +209,6 @@ func move_piece(from_r, from_c, to_r, to_c):
 				global.pieceTypes[9][i]=global.NONE
 		global.pieceTypes[to_r][to_c] = global.pieceTypes[from_r][from_c]
 		global.pieceTypes[from_r][from_c] = global.NONE
-		global.add_move_to_list()
 		global.send_board_update()
 		global.switch_turn()
 		selected_r = -1
