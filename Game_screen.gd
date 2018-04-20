@@ -22,8 +22,6 @@ var selected_theme
 var move_theme
 
 onready var was_pressed = false
-#onready var in_check = false
-
 
 var visible_grid
 var dr = [-1,  0,  1, 1, 1, 0, -1, -1]
@@ -38,9 +36,6 @@ var song_number = 5
 var elapsed_time = 0
 
 func _ready():
-	
-	
-	
 	# More music stuff
 	var current_song = load(songNames[song_number] + ".ogg")
 	player.set_stream(current_song)
@@ -55,7 +50,6 @@ func _ready():
 
 
 func _process(delta):
-	
 	#MORE music stuff
 	# if they want to pause the song
 	if Input.is_action_pressed("ui_select"):
@@ -85,7 +79,7 @@ func _process(delta):
 		player.set_stream(current_song)
 		player.play()
 		
-	#Music stuff is done
+		
 	# Update chat
 	$Chat_Box/BetterChat.text = ""
 	for msg in global.chat_messages:
@@ -144,6 +138,7 @@ func _process(delta):
 			else:
 				grid[i][j].icon = TEX_FOG
 	
+	# Tile selection
 	var is_pressed = false
 	for i in range(8):
 		for j in range(8):
@@ -155,26 +150,31 @@ func _process(delta):
 	
 	was_pressed = is_pressed
 	
+	# Adjust color of selected and valid tiles
 	for i in range(8):
 		for j in range(8):
 			grid[i][j].set_flat(true)
 			grid[i][j].set_theme(null)
-			
+	
+	# Selected tile = yellow
 	if selected_r != -1 and selected_c != -1:
 		grid[selected_r][selected_c].set_flat(false)
 		grid[selected_r][selected_c].set_theme(selected_theme)
 		
+		# Valid tiles = green
 		for i in range(8):
 			for j in range(8):
 				if is_valid(selected_r, selected_c, i, j):
 					grid[i][j].set_flat(false)
 					grid[i][j].set_theme(move_theme)
 					
-	if fools_mate():
-		if global.my_type == global.WHITE:
-			get_tree().change_scene("res://LoseScreen.tscn")
-		else:
-			get_tree().change_scene("res://WinScreen.tscn")
+#	if fools_mate():
+#		if global.my_type == global.WHITE:
+#			get_tree().change_scene("res://LoseScreen.tscn")
+#		else:
+#			get_tree().change_scene("res://WinScreen.tscn")
+			
+	king_cap()
 
 func select_tile(r, c):
 	print(str(r) + str(c))
@@ -221,6 +221,7 @@ func move_piece(from_r, from_c, to_r, to_c):
 		selected_r = -1
 		selected_c = -1
 	
+# Big ol' method that determines if the specified move is valid.
 func is_valid(from_r, from_c, to_r, to_c):
 	if from_r == to_r and from_c == to_c:
 		return false
@@ -233,10 +234,14 @@ func is_valid(from_r, from_c, to_r, to_c):
 	var diff_c = from_c - to_c
 	match global.pieceTypes[from_r][from_c]:
 		global.BLACK_PAWN:
+			# Move forward once
 			if (to_c == from_c and to_r == from_r+1 and global.pieceTypes[to_r][to_c] == global.NONE):
 				return true
+				
+			# Diagonal captures
 			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r + 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
 				return true
+			
 			elif to_c == from_c and from_r == 1 and to_r == 3 and global.pieceTypes[to_r][to_c]==global.NONE and global.pieceTypes[to_r-1][to_c]==global.NONE:
 				global.pieceTypes[9][to_c]=global.BLACK_PAWN
 				return true
@@ -254,6 +259,8 @@ func is_valid(from_r, from_c, to_r, to_c):
 			if abs(diff_c) <= 1 and abs(diff_r) <= 1 and !is_blocked(from_r, from_c, to_r, to_c):
 				global.pieceTypes[11][4]=global.NONE
 				return true
+				
+			# Castleing code
 			elif global.pieceTypes[11][4]==global.BLACK_KING and from_r==0 and from_c==4 and global.pieceTypes[11][0]==global.BLACK_ROOK and to_r==0 and to_c==2:
 				if global.pieceTypes[0][1]==global.NONE and global.pieceTypes[0][2]==global.NONE and global.pieceTypes[0][3]==global.NONE:
 					global.pieceTypes[0][0]=global.NONE
@@ -274,17 +281,24 @@ func is_valid(from_r, from_c, to_r, to_c):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
 		global.BLACK_QUEEN:
+			# Diagonal movement
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
+			
+			# Cardinal movement
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
 		global.WHITE_PAWN:
+			# Forward once
 			if(to_c == from_c and to_r == from_r-1 and global.pieceTypes[to_r][to_c] == global.NONE):
 				return true
+				
+			# Diagonal captures
 			elif ((to_c == from_c + 1 or to_c == from_c - 1 ) and to_r == from_r - 1 and global.pieceTypes[to_r][to_c]!=global.NONE and !can_move_piece(to_r, to_c)):
 				return true
+				
 			elif to_c == from_c and from_r == 6 and to_r == 4 and global.pieceTypes[to_r][to_c]==global.NONE and global.pieceTypes[to_r+1][to_c]==global.NONE:
 				global.pieceTypes[8][to_c]=global.WHITE_PAWN
 				return true
@@ -322,18 +336,19 @@ func is_valid(from_r, from_c, to_r, to_c):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
 		global.WHITE_QUEEN:
+			# Diagonal movement
 			if get_left_diag(to_r, to_c) == get_left_diag(from_r, from_c) or get_right_diag(to_r, to_c) == get_right_diag(from_r, from_c):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
+			
+			# Cardinal movement
 			if((to_c == from_c or to_r == from_r) and !(to_c == from_c and to_r == from_r)):
 				if !is_blocked(from_r, from_c, to_r, to_c):
 					return true
 	return false
 	
-func is_blocked_cardinal(from_r, from_c, to_r, to_c):
-	
-	return false
-	
+# Determines if there is a piece blocking the specified move.
+# Will not be called for knights or pawns. Only diagonal or cardinal moves.
 func is_blocked(from_r, from_c, to_r, to_c):
 	var dr = sign(to_r - from_r)
 	var dc = sign(to_c - from_c)
@@ -358,6 +373,8 @@ func is_blocked(from_r, from_c, to_r, to_c):
 
 func in_bounds(r, c):
 	return r >= 0 and r < 8 and c >= 0 and c < 8
+
+# Get the number of the diagonal the specified piece is on.
 func get_left_diag(r, c):
 	return r + c
 func get_right_diag(r, c):
@@ -367,14 +384,30 @@ func _on_SendChatButton_pressed():
 	global.send_chat_to_server($Text_Input/ChatInputBox.text)
 	$Text_Input/ChatInputBox.text = ""
 
-func fools_mate():
+# Determines if either king has been captured, then ends the game if necessary.
+func king_cap():
+	var white_king = false
+	var black_king = false
 	for i in range(8):
 		for j in range(8):
-			if global.temp_board[i][j] != global.pieceTypes[i][j]:
+			if global.pieceTypes[i][j] == global.BLACK_KING:
+				black_king = true
+			if global.pieceTypes[i][j] == global.WHITE_KING:
+				white_king = true
+			if black_king and white_king:
 				return false
-	return true
+	if !black_king:
+		if global.my_type == global.BLACK:
+			get_tree().change_scene("res://LoseScreen.tscn")
+		else:
+			get_tree().change_scene("res://WinScreen.tscn")
+	elif !white_king:
+		if global.my_type == global.WHITE:
+			get_tree().change_scene("res://LoseScreen.tscn")
+		else:
+			get_tree().change_scene("res://WinScreen.tscn")
 
-# If the piece at rc is yours, return true, otherwise, false
+# If the piece at rc is the current client's, return true, otherwise, false.
 func can_move_piece(r, c):
 	match global.pieceTypes[r][c]:
 		global.BLACK_ROOK, global.BLACK_KING, global.BLACK_BISHOP, global.BLACK_QUEEN, global.BLACK_PAWN, global.BLACK_KNIGHT:

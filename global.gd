@@ -64,46 +64,46 @@ func init_game_board():
 	pieceTypes[7][3] = WHITE_QUEEN
 	pieceTypes[7][4] = WHITE_KING
 	
-	# For fool's mate test
-	temp_board = []
-	for i in range(10):
-		temp_board.append([NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE])
-		
-	temp_board[1][0] = BLACK_PAWN
-	temp_board[1][1] = BLACK_PAWN
-	temp_board[1][2] = BLACK_PAWN
-	temp_board[1][3] = BLACK_PAWN
-	temp_board[3][4] = BLACK_PAWN
-	temp_board[1][5] = BLACK_PAWN
-	temp_board[1][6] = BLACK_PAWN
-	temp_board[1][7] = BLACK_PAWN
-	
-	temp_board[6][0] = WHITE_PAWN
-	temp_board[6][1] = WHITE_PAWN
-	temp_board[6][2] = WHITE_PAWN
-	temp_board[6][3] = WHITE_PAWN
-	temp_board[6][4] = WHITE_PAWN
-	temp_board[5][5] = WHITE_PAWN
-	temp_board[4][6] = WHITE_PAWN
-	temp_board[6][7] = WHITE_PAWN
-	
-	temp_board[0][0] = BLACK_ROOK
-	temp_board[0][7] = BLACK_ROOK
-	temp_board[0][1] = BLACK_KNIGHT
-	temp_board[0][6] = BLACK_KNIGHT
-	temp_board[0][2] = BLACK_BISHOP
-	temp_board[0][5] = BLACK_BISHOP
-	temp_board[4][7] = BLACK_QUEEN
-	temp_board[0][4] = BLACK_KING
-	
-	temp_board[7][0] = WHITE_ROOK
-	temp_board[7][7] = WHITE_ROOK
-	temp_board[7][1] = WHITE_KNIGHT
-	temp_board[7][6] = WHITE_KNIGHT
-	temp_board[7][2] = WHITE_BISHOP
-	temp_board[7][5] = WHITE_BISHOP
-	temp_board[7][3] = WHITE_QUEEN
-	temp_board[7][4] = WHITE_KING
+#	# For fool's mate test
+#	temp_board = []
+#	for i in range(10):
+#		temp_board.append([NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE])
+#
+#	temp_board[1][0] = BLACK_PAWN
+#	temp_board[1][1] = BLACK_PAWN
+#	temp_board[1][2] = BLACK_PAWN
+#	temp_board[1][3] = BLACK_PAWN
+#	temp_board[3][4] = BLACK_PAWN
+#	temp_board[1][5] = BLACK_PAWN
+#	temp_board[1][6] = BLACK_PAWN
+#	temp_board[1][7] = BLACK_PAWN
+#
+#	temp_board[6][0] = WHITE_PAWN
+#	temp_board[6][1] = WHITE_PAWN
+#	temp_board[6][2] = WHITE_PAWN
+#	temp_board[6][3] = WHITE_PAWN
+#	temp_board[6][4] = WHITE_PAWN
+#	temp_board[5][5] = WHITE_PAWN
+#	temp_board[4][6] = WHITE_PAWN
+#	temp_board[6][7] = WHITE_PAWN
+#
+#	temp_board[0][0] = BLACK_ROOK
+#	temp_board[0][7] = BLACK_ROOK
+#	temp_board[0][1] = BLACK_KNIGHT
+#	temp_board[0][6] = BLACK_KNIGHT
+#	temp_board[0][2] = BLACK_BISHOP
+#	temp_board[0][5] = BLACK_BISHOP
+#	temp_board[4][7] = BLACK_QUEEN
+#	temp_board[0][4] = BLACK_KING
+#
+#	temp_board[7][0] = WHITE_ROOK
+#	temp_board[7][7] = WHITE_ROOK
+#	temp_board[7][1] = WHITE_KNIGHT
+#	temp_board[7][6] = WHITE_KNIGHT
+#	temp_board[7][2] = WHITE_BISHOP
+#	temp_board[7][5] = WHITE_BISHOP
+#	temp_board[7][3] = WHITE_QUEEN
+#	temp_board[7][4] = WHITE_KING
 
 func _ready():
 	get_tree().connect("network_peer_disconnected", self, "_client_disconnected")
